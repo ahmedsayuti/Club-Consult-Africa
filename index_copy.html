@@ -871,8 +871,13 @@
         
         @media (max-width: 768px) {
             :root {
-                --navbar-height: 90px;
-                --navbar-height-scrolled: 70px;
+                --navbar-height: 100px;
+                --navbar-height-scrolled: 80px;
+            }
+
+                .navbar {
+                padding-top: 40px;
+                padding-bottom: 20px;
             }
             
             .hero-title {
@@ -896,6 +901,15 @@
             
             .mobile-menu-btn {
                 display: block;
+                font-size: 24px;
+                background: none;
+                border: none;
+                color: var(--light-text);
+                cursor: pointer;
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                height: 100%; /* Make it full height of navbar */
             }
             
             .nav-links {
@@ -964,6 +978,20 @@
             
             .blog-grid {
                 grid-template-columns: 1fr;
+            }
+            .logo img {
+                height: 50px;
+            }
+            .navbar.scrolled .logo img {
+                height: 35px;
+            }
+            .navbar {
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+            .navbar.scrolled {
+                padding-top: 4px;
+                padding-bottom: 4px;
             }
         }
 
