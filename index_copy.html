@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/logo3.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo3.png">
     
     <style>
         /* ===== RESET AND FIXES ===== */
@@ -44,7 +44,7 @@
             --gray-bg: #F8F9FA;
             --border-color: #DEE2E6;
             --section-spacing: 100px;
-            --navbar-height: 100px;
+            --navbar-height: 120px;
             --navbar-height-scrolled: 80px;
         }
         
@@ -81,6 +81,9 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 2px solid transparent;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            /* Add padding for breathing room */
+            padding-top: 30px;
+            padding-bottom: 20px;
         }
         
         .navbar.scrolled {
@@ -88,6 +91,8 @@
             background-color: var(--primary-color);
             border-bottom: 2px solid var(--secondary-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
         
         .nav-container {
@@ -110,12 +115,14 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
         
         .nav-links li {
             margin-left: 40px;
+            display: flex;
+            align-items: center;
         }
-        
         .nav-links a {
             color: var(--light-text);
             text-decoration: none;
@@ -1256,7 +1263,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <a href="../home/"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+                <a href="/"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
             </div>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1264,7 +1271,7 @@
             </button>
             
             <ul class="nav-links" id="mainNav">
-                <li><a href="../home/" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
                 <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
                 <li><a href="#clients"><i class="fas fa-users"></i> Clients / Players</a></li>
@@ -1280,8 +1287,8 @@
         <div class="hero-video-container">
             <div class="video-overlay"></div>
             <video id="heroVideo" class="hero-video" autoplay loop muted playsinline preload="auto">
-                <source src="../assets/vid/home.mp4" type="video/mp4">
-                <source src="../assets/vid/home.webm" type="video/webm">
+                <source src="assets/vid/home.mp4" type="video/mp4">
+                <source src="assets/vid/home.webm" type="video/webm">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -1426,7 +1433,7 @@
                 <div class="swiper-wrapper">
                     <div class="testimonial-card swiper-slide">
                         <div class="client-photo">
-                            <img src="../assets/img/ayarna.jpg" alt="Reuben Ayarna">
+                            <img src="assets/img/ayarna.jpg" alt="Reuben Ayarna">
                         </div>
                         <div class="testimonial-text">
                             "The decision to work with CCA was one of the best decisions I've made in terms of choosing representation. They are very professional and always look out for the best interests of their clients. They keep constant communication with you regarding all of your options and strive to find the ideal situation for you"
@@ -1437,7 +1444,7 @@
                     
                     <div class="testimonial-card swiper-slide">
                         <div class="client-photo">
-                            <img src="../assets/img/Owusu.jpg" alt="Samuel Ofori">
+                            <img src="assets/img/Owusu.jpg" alt="Samuel Ofori">
                         </div>
                         <div class="testimonial-text">
                             "when I wanted to change my agency, I wanted to cooperate with someone who will respect me as a person and as a player, help me achieve my dreams and my goals. I accepted to be partners of CCA, after a phone conversation and they have shown me love and being my family since day one."
@@ -1448,7 +1455,7 @@
                     
                     <div class="testimonial-card swiper-slide">
                         <div class="client-photo">
-                            <img src="../assets/img/waris.jpg" alt="Warris">
+                            <img src="assets/img/waris.jpg" alt="Warris">
                         </div>
                         <div class="testimonial-text">
                             "Working with Club Consult has exceled my career in all kinds of ways! Through the years I have had great service and attention that kept me more than satisfied. The family environment and care along with professional work ethic is unmatched and really makes them stand out. I have been fortunate to have been represented by them"
@@ -1563,11 +1570,11 @@
                 
                 <!-- Player 2 -->
                 <div class="youtube-highlight-item" 
-                    data-youtube-id="1jqhnAx3R2w" 
+                    data-youtube-id="YOUTUBE_ID_2" 
                     data-player="Samuel Owusu"
                     data-info="Winger • Al-Fayha, Saudi Arabia">
                     <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/1jqhnAx3R2w/maxresdefault.jpg" 
+                        <img src="https://img.youtube.com/vi/YOUTUBE_ID_2/maxresdefault.jpg" 
                             alt="Samuel Owusu Highlights" 
                             class="youtube-thumbnail">
                         <div class="youtube-play-button">
@@ -1587,11 +1594,11 @@
                 
                 <!-- Player 3 -->
                 <div class="youtube-highlight-item" 
-                    data-youtube-id="NbpQ2M3gjv0" 
+                    data-youtube-id="YOUTUBE_ID_3" 
                     data-player="Abdul-Majeed Waris"
                     data-info="Forward • FC Porto, Portugal">
                     <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/NbpQ2M3gjv0/maxresdefault.jpg" 
+                        <img src="https://img.youtube.com/vi/YOUTUBE_ID_3/maxresdefault.jpg" 
                             alt="Abdul-Majeed Waris Highlights" 
                             class="youtube-thumbnail">
                         <div class="youtube-play-button">
@@ -1611,12 +1618,12 @@
                 
                 <!-- Player 4 -->
                 <div class="youtube-highlight-item" 
-                    data-youtube-id="Nnyg3PVIzGo" 
-                    data-player="Kwame Baah"
-                    data-info="Goal Keeper • Asante Kotoko, Ghana">
+                    data-youtube-id="YOUTUBE_ID_4" 
+                    data-player="Mohammed Salisu"
+                    data-info="Defender • AS Monaco, France">
                     <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/Nnyg3PVIzGo/maxresdefault.jpg" 
-                            alt="Kwame Baah Highlights" 
+                        <img src="https://img.youtube.com/vi/YOUTUBE_ID_4/maxresdefault.jpg" 
+                            alt="Mohammed Salisu Highlights" 
                             class="youtube-thumbnail">
                         <div class="youtube-play-button">
                             <i class="fas fa-play"></i>
@@ -1628,19 +1635,19 @@
                         </button>
                     </div>
                     <div class="youtube-overlay">
-                        <div class="youtube-player-name">Kwame Baah</div>
-                        <div class="youtube-player-info">Goal Keeper • Asante Kotoko, Ghana</div>
+                        <div class="youtube-player-name">Mohammed Salisu</div>
+                        <div class="youtube-player-info">Defender • AS Monaco, France</div>
                     </div>
                 </div>
                 
                 <!-- Player 5 -->
                 <div class="youtube-highlight-item" 
                     data-youtube-id="YOUTUBE_ID_5" 
-                    data-player="Daniel Barnieh Afriyie"
-                    data-info="Midfielder • Accra Hearts of Oak, Ghana">
+                    data-player="Thomas Partey"
+                    data-info="Midfielder • Arsenal, England">
                     <div class="youtube-thumbnail-container">
                         <img src="https://img.youtube.com/vi/YOUTUBE_ID_5/maxresdefault.jpg" 
-                            alt="Daniel Barnieh Afriyie Highlights" 
+                            alt="Thomas Partey Highlights" 
                             class="youtube-thumbnail">
                         <div class="youtube-play-button">
                             <i class="fas fa-play"></i>
@@ -1652,16 +1659,16 @@
                         </button>
                     </div>
                     <div class="youtube-overlay">
-                        <div class="youtube-player-name">Daniel Barnieh Afriyie</div>
-                        <div class="youtube-player-info">Midfielder • Accra Hearts of Oak, Ghana</div>
+                        <div class="youtube-player-name">Thomas Partey</div>
+                        <div class="youtube-player-info">Midfielder • Arsenal, England</div>
                     </div>
                 </div>
                 
                 <!-- Player 6 -->
                 <div class="youtube-highlight-item" 
                     data-youtube-id="YOUTUBE_ID_6" 
-                    data-player="Amadu Latif"
-                    data-info="Forward • Al Ansar Club, Lebanon">
+                    data-player="Andre Ayew"
+                    data-info="Forward • Le Havre, France">
                     <div class="youtube-thumbnail-container">
                         <img src="https://img.youtube.com/vi/YOUTUBE_ID_6/maxresdefault.jpg" 
                             alt="Andre Ayew Highlights" 
@@ -1676,8 +1683,8 @@
                         </button>
                     </div>
                     <div class="youtube-overlay">
-                        <div class="youtube-player-name">Amadu Latif</div>
-                        <div class="youtube-player-info">Forward • Al Ansar Club, Lebanon</div>
+                        <div class="youtube-player-name">Andre Ayew</div>
+                        <div class="youtube-player-info">Forward • Le Havre, France</div>
                     </div>
                 </div>
             </div>
@@ -1832,7 +1839,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <a href="../home/"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
+                    <a href="/"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
                     <p style="opacity: 0.8; margin-bottom: 20px;">
                         Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
                     </p>
