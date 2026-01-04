@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Highlights - Club Consult Africa | Premier Football Agency</title>
+    
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo3.png">
+    
+    <style>
+        /* ===== RESET AND GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #111111;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+        
+        :root {
+            --primary-color: #0A1E3C;
+            --accent-color: #E63946;
+            --secondary-color: #FDB827;
+            --light-bg: #F8F9FA;
+            --light-text: #FFFFFF;
+            --section-spacing: 100px;
+            --navbar-height: 120px;
+            --navbar-height-scrolled: 80px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--navbar-height);
+            background-color: rgba(10, 30, 60, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.scrolled {
+            height: var(--navbar-height-scrolled);
+            background-color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .logo img {
+            height: 100px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled .logo img {
+            height: 60px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* ===== HIGHLIGHTS HERO SECTION ===== */
+        .highlights-hero {
+            min-height: 70vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            overflow: hidden;
+            padding-top: var(--navbar-height);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #152a50 100%);
+        }
+        
+        .highlights-hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .highlights-hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.15;
+        }
+
+        .highlights-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 30, 60, 0.9) 0%, rgba(21, 42, 80, 0.8) 100%);
+            z-index: 2;
+        }
+        
+        .highlights-hero-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .highlights-hero-tagline {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.3s;
+        }
+        
+        .highlights-hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.5s;
+        }
+        
+        .highlights-hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.7s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== PLAYER FILTER SECTION ===== */
+        .player-filter {
+            background-color: var(--light-bg);
+            padding: 40px 0;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            background-color: white;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(253, 184, 39, 0.2);
+        }
+        
+        /* ===== YOUTUBE HIGHLIGHTS SECTION ===== */
+        #highlights {
+            background-color: white;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .youtube-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .youtube-highlight-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #000;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .youtube-highlight-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .youtube-thumbnail-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .youtube-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .youtube-highlight-item:hover .youtube-thumbnail {
+            transform: scale(1.05);
+        }
+
+        .youtube-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .youtube-highlight-item:hover .youtube-play-button {
+            background: var(--secondary-color);
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+        }
+
+        .youtube-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .youtube-highlight-item:hover .youtube-overlay {
+            opacity: 0.9;
+        }
+
+        .youtube-player-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--light-text);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .youtube-player-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* YouTube Fullscreen Modal */
+        .youtube-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .youtube-fullscreen-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .youtube-fullscreen-container {
+            width: 90%;
+            height: 90%;
+            position: relative;
+            max-width: 1200px;
+        }
+
+        .youtube-iframe-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #000;
+        }
+
+        .youtube-fullscreen-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .youtube-close-fullscreen {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .youtube-close-fullscreen:hover {
+            background: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        
+        /* ===== STATS SECTION ===== */
+        .highlights-stats {
+            background-color: var(--light-bg);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        /* ===== UPDATED INSTAGRAM SECTION ===== */
+        /* Using structure from index copy.html with index.html styling */
+        .instagram-section {
+            background-color: var(--light-bg);
+        }
+        
+        .instagram-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .instagram-handle {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .instagram-handle a {
+            color: #E1306C;
+            text-decoration: none;
+        }
+        
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        /* Instagram Embed Container */
+        .instagram-embed-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .instagram-embed-wrapper:hover {
+            transform: translateY(-5px);
+        }
+        
+        .btn-instagram {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-instagram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Instagram Media Styling */
+        .instagram-media {
+            background: #FFF;
+            border: 0;
+            border-radius: 3px;
+            box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);
+            margin: 1px;
+            max-width: 540px;
+            min-width: 326px;
+            padding: 0;
+            width: 99.375%;
+            width: -webkit-calc(100% - 2px);
+            width: calc(100% - 2px);
+        }
+        
+        /* ===== CALL TO ACTION SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #f0c01a 100%);
+            color: var(--primary-color);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a1629 100%);
+            color: var(--light-text);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .newsletter-form {
+            margin-top: 15px;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .footer-social {
+            margin: 30px 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 1200px) {
+            .highlights-hero-title {
+                font-size: 3.2rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .youtube-highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --navbar-height: 100px;
+                --navbar-height-scrolled: 80px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-top: 100px;
+                padding-left: 40px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 25px 0;
+            }
+            
+            .highlights-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .highlights-hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .youtube-highlights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .instagram-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .highlights-hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+            }
+            
+            .youtube-fullscreen-container {
+                width: 95%;
+                height: 80%;
+            }
+            
+            .youtube-close-fullscreen {
+                top: -40px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .youtube-play-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="mainNav">
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../about/"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="../index.html#services"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="../index.html#clients"><i class="fas fa-users"></i> Our Players</a></li>
+                <li><a href="../blog/"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="../highlights/" class="active"><i class="fas fa-video"></i> Highlights</a></li>
+                <li><a href="../index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
+                <li><a href="../index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Highlights Hero Section -->
+    <section class="highlights-hero">
+        <div class="highlights-hero-video-container">
+            <video class="highlights-hero-video" autoplay loop muted playsinline preload="auto">
+                <source src="assets/vid/highlights.mp4" type="video/mp4">
+                <source src="assets/vid/highlights.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            <div class="highlights-hero-overlay"></div>
+        </div>
+        
+        <div class="container">
+            <div class="highlights-hero-content">
+                <span class="highlights-hero-tagline">Elite Performances</span>
+                <h1 class="highlights-hero-title">Player Highlights Gallery</h1>
+                <p class="highlights-hero-subtitle">Watch our professional footballers in action. From Ghanaian talents to international stars, experience the skill, passion, and excellence that define Club Consult Africa clients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Player Filter Section -->
+    <section class="player-filter">
+        <div class="container">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Players</button>
+                <button class="filter-btn" data-filter="ghanaian">Ghanaian Stars</button>
+                <button class="filter-btn" data-filter="international">International</button>
+                <button class="filter-btn" data-filter="attackers">Attackers</button>
+                <button class="filter-btn" data-filter="midfielders">Midfielders</button>
+                <button class="filter-btn" data-filter="defenders">Defenders</button>
+                <button class="filter-btn" data-filter="goalkeepers">Goalkeepers</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Highlights Section -->
+    <section id="highlights" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Exclusive Player Highlights</h2>
+                <p>Click on any video to watch full highlights in fullscreen mode</p>
+            </div>
+            
+            <div class="youtube-highlights-grid">
+                <!-- Player 1 - Reuben Ayarna -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="QvQtKlrs3DI" 
+                    data-player="Reuben Ayarna"
+                    data-info="Midfielder • Ilves, Finland"
+                    data-category="ghanaian midfielders">
+                    <div class="youtube-thumbnail-container">
+                        <img src="https://img.youtube.com/vi/QvQtKlrs3DI/maxresdefault.jpg" 
+                            alt="Reuben Ayarna Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Reuben Ayarna</div>
+                        <div class="youtube-player-info">Midfielder • Ilves, Finland</div>
+                    </div>
+                </div>
+                
+                <!-- Player 2 - Samuel Owusu -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="1jqhnAx3R2w" 
+                    data-player="Samuel Owusu"
+                    data-info="Winger • Al-Fayha, Saudi Arabia"
+                    data-category="ghanaian attackers">
+                    <div class="youtube-thumbnail-container">
+                        <img src="https://img.youtube.com/vi/1jqhnAx3R2w/maxresdefault.jpg" 
+                            alt="Samuel Owusu Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Samuel Owusu</div>
+                        <div class="youtube-player-info">Winger • Al-Fayha, Saudi Arabia</div>
+                    </div>
+                </div>
+                
+                <!-- Player 3 - Abdul-Majeed Waris -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="NbpQ2M3gjv0" 
+                    data-player="Abdul-Majeed Waris"
+                    data-info="Forward • FC Porto, Portugal"
+                    data-category="ghanaian attackers international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="https://img.youtube.com/vi/NbpQ2M3gjv0/maxresdefault.jpg" 
+                            alt="Abdul-Majeed Waris Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Abdul-Majeed Waris</div>
+                        <div class="youtube-player-info">Forward • FC Porto, Portugal</div>
+                    </div>
+                </div>
+                
+                <!-- Player 4 - Lawrence Ati-Zigi -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="dQw4w9WgXcQ" 
+                    data-player="Lawrence Ati-Zigi"
+                    data-info="Goalkeeper • St. Gallen, Switzerland"
+                    data-category="ghanaian goalkeepers international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/ati-zigi.jpg" 
+                            alt="Lawrence Ati-Zigi Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Lawrence Ati-Zigi</div>
+                        <div class="youtube-player-info">Goalkeeper • St. Gallen, Switzerland</div>
+                    </div>
+                </div>
+                
+                <!-- Player 5 - Joseph Paintsil -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="abc123" 
+                    data-player="Joseph Paintsil"
+                    data-info="Winger • KRC Genk, Belgium"
+                    data-category="ghanaian attackers international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/paintsil.jpg" 
+                            alt="Joseph Paintsil Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Joseph Paintsil</div>
+                        <div class="youtube-player-info">Winger • KRC Genk, Belgium</div>
+                    </div>
+                </div>
+                
+                <!-- Player 6 - Daniel Amartey -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="xyz789" 
+                    data-player="Daniel Amartey"
+                    data-info="Defender • Leicester City, England"
+                    data-category="ghanaian defenders international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/amartey.jpg" 
+                            alt="Daniel Amartey Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Daniel Amartey</div>
+                        <div class="youtube-player-info">Defender • Leicester City, England</div>
+                    </div>
+                </div>
+                
+                <!-- Player 7 - Kamal Sowah -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="def456" 
+                    data-player="Kamal Sowah"
+                    data-info="Midfielder • Club Brugge, Belgium"
+                    data-category="ghanaian midfielders international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/sowah.jpg" 
+                            alt="Kamal Sowah Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Kamal Sowah</div>
+                        <div class="youtube-player-info">Midfielder • Club Brugge, Belgium</div>
+                    </div>
+                </div>
+                
+                <!-- Player 8 - Gideon Mensah -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="ghi789" 
+                    data-player="Gideon Mensah"
+                    data-info="Defender • Auxerre, France"
+                    data-category="ghanaian defenders international">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/mensah.jpg" 
+                            alt="Gideon Mensah Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Gideon Mensah</div>
+                        <div class="youtube-player-info">Defender • Auxerre, France</div>
+                    </div>
+                </div>
+                
+                <!-- Player 9 - Augustine Okrah -->
+                <div class="youtube-highlight-item" 
+                    data-youtube-id="jkl012" 
+                    data-player="Augustine Okrah"
+                    data-info="Forward • Bechem United, Ghana"
+                    data-category="ghanaian attackers">
+                    <div class="youtube-thumbnail-container">
+                        <img src="assets/img/okrah.jpg" 
+                            alt="Augustine Okrah Highlights" 
+                            class="youtube-thumbnail">
+                        <div class="youtube-play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="youtube-overlay">
+                        <div class="youtube-player-name">Augustine Okrah</div>
+                        <div class="youtube-player-info">Forward • Bechem United, Ghana</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#instagram-feed" class="btn-primary">View Our Social Media <i class="fas fa-arrow-down"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Fullscreen Modal -->
+    <div class="youtube-fullscreen-modal" id="youtubeFullscreenModal">
+        <div class="youtube-fullscreen-container">
+            <div class="youtube-iframe-container">
+                <iframe class="youtube-fullscreen-iframe" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+            <button class="youtube-close-fullscreen" id="youtubeCloseFullscreen">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="section highlights-stats">
+        <div class="container">
+            <div class="section-title">
+                <h2>By The Numbers</h2>
+                <p>Our clients' achievements and milestones</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <div class="stat-number">50+</div>
+                    <p>Professional Footballers Represented</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <div class="stat-number">20+</div>
+                    <p>Countries Our Players Compete In</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-number">15+</div>
+                    <p>International Caps Achieved</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-number">100M+</div>
+                    <p>Combined YouTube Views</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPDATED Instagram Section (from index copy.html) -->
+    <section id="instagram-feed" class="section instagram-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Instagram Feed</h2>
+                <p>Latest updates from our official Instagram - view posts directly on our site</p>
+            </div>
+            
+            <div class="instagram-header">
+                <div class="instagram-handle">
+                    <i class="fab fa-instagram"></i>
+                    <a href="https://www.instagram.com/clubconsultafrica/" target="_blank">@clubconsultafrica</a>
+                </div>
+                <p style="color: #666; max-width: 600px; margin: 0 auto;">Follow us for behind-the-scenes content, player announcements, and training sessions</p>
+            </div>
+            
+            <!-- REAL INSTAGRAM EMBEDS - Replace these with your actual embed codes -->
+            <div class="instagram-grid">
+                
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
+                
+                <!-- Instagram Post 2 - Replace this entire block with your embed code -->
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+                
+                <!-- Instagram Post 3 - Replace this entire block with your embed code -->
+                <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://www.instagram.com/clubconsultafrica/" target="_blank" class="btn-instagram">
+                    <i class="fab fa-instagram"></i>
+                    View More on Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Want To Be Featured Here?</h2>
+                <p>Join Club Consult Africa and get the professional representation, career development, and global exposure you need to reach your full potential.</p>
+                <a href="../index.html#talent-form" class="btn-primary">Join Our Talent Pool</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px; filter: brightness(0) invert(1);"></a>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/" class="social-icon" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCbFCo17_fMGdNh5AVGJZ6vw" class="social-icon" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about/"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="index.html#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="blog/"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Highlights</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Player Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Ghanaian Stars</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> International Players</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Attackers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Midfielders</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Defenders</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Goalkeepers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Subscribe for updates on player highlights, transfers, and opportunities.
+                    </p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" name="email" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Club Consult Africa. All rights reserved. | <a href="#" style="color: var(--secondary-color); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--secondary-color); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Mobile Menu Toggle
+            $('#mobileMenuBtn').click(function() {
+                $('#mainNav').toggleClass('active');
+                $(this).html($('#mainNav').hasClass('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>');
+            });
+            
+            // Navbar scroll effect
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.navbar').addClass('scrolled');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetElement = $(targetId);
+                if (targetElement.length) {
+                    const navbarHeight = $('.navbar').outerHeight();
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - navbarHeight
+                    }, 800);
+                    
+                    // Update active nav link
+                    $('.nav-links a').removeClass('active');
+                    $(this).addClass('active');
+                    
+                    // Close mobile menu if open
+                    if ($('#mainNav').hasClass('active')) {
+                        $('#mainNav').removeClass('active');
+                        $('#mobileMenuBtn').html('<i class="fas fa-bars"></i>');
+                    }
+                }
+            });
+            
+            // YouTube Highlights Functionality
+            initYouTubeHighlights();
+            
+            // Player Filter Functionality
+            initPlayerFilter();
+            
+            // Instagram Embed Script Loading (from index copy.html)
+            function loadInstagramEmbeds() {
+                if (!document.querySelector('script[src="//www.instagram.com/embed.js"]')) {
+                    const script = document.createElement('script');
+                    script.src = '//www.instagram.com/embed.js';
+                    script.async = true;
+                    document.body.appendChild(script);
+                }
+            }
+            
+            // Load Instagram embeds after page loads
+            setTimeout(loadInstagramEmbeds, 1000);
+            
+            // Animate elements on scroll
+            gsap.utils.toArray('.youtube-highlight-item, .stat-card, .instagram-embed-wrapper').forEach(element => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Newsletter form submission
+            $('#newsletterForm').on('submit', function(e) {
+                e.preventDefault();
+                const email = $(this).find('input[name="email"]').val();
+                if (email) {
+                    alert('Thank you for subscribing to our highlights newsletter!');
+                    $(this).find('input[name="email"]').val('');
+                }
+            });
+        });
+        
+        // YouTube Highlights Functionality
+        function initYouTubeHighlights() {
+            const youtubeHighlightItems = document.querySelectorAll('.youtube-highlight-item');
+            const youtubeFullscreenModal = document.getElementById('youtubeFullscreenModal');
+            const youtubeCloseFullscreen = document.getElementById('youtubeCloseFullscreen');
+            const youtubeIframe = youtubeFullscreenModal.querySelector('.youtube-fullscreen-iframe');
+            
+            // Preload YouTube thumbnails
+            youtubeHighlightItems.forEach(item => {
+                const thumbnail = item.querySelector('.youtube-thumbnail');
+                const youtubeId = item.getAttribute('data-youtube-id');
+                
+                // Use higher quality thumbnail for real YouTube videos
+                if (youtubeId && youtubeId.length === 11) {
+                    thumbnail.src = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+                    
+                    // Fallback to hqdefault if maxresdefault doesn't exist
+                    thumbnail.onerror = function() {
+                        this.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+                    };
+                }
+                
+                // Add hover effect
+                item.addEventListener('mouseenter', function() {
+                    this.querySelector('.youtube-play-button').style.transform = 'translate(-50%, -50%) scale(1.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.querySelector('.youtube-play-button').style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+            
+            // Open YouTube video in fullscreen modal
+            function openYouTubeFullscreen(item) {
+                const youtubeId = item.getAttribute('data-youtube-id');
+                const playerName = item.getAttribute('data-player');
+                
+                // For demo purposes, use placeholder videos if ID is not a real YouTube ID
+                let embedUrl;
+                if (youtubeId && youtubeId.length === 11) {
+                    // Construct YouTube embed URL with autoplay
+                    embedUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                } else {
+                    // Use a placeholder video for demo
+                    embedUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+                }
+                
+                // Set iframe source
+                youtubeIframe.src = embedUrl;
+                
+                // Show modal
+                youtubeFullscreenModal.classList.add('active');
+                
+                // Update page title for screen readers
+                document.title = `${playerName} Highlights - Club Consult Africa`;
+            }
+            
+            // Add click event to entire highlight item
+            youtubeHighlightItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    openYouTubeFullscreen(this);
+                });
+            });
+            
+            // Close fullscreen modal
+            youtubeCloseFullscreen.addEventListener('click', function() {
+                youtubeFullscreenModal.classList.remove('active');
+                youtubeIframe.src = '';
+                document.title = 'Player Highlights - Club Consult Africa | Premier Football Agency';
+            });
+            
+            // Close modal when clicking outside
+            youtubeFullscreenModal.addEventListener('click', function(e) {
+                if (e.target === youtubeFullscreenModal) {
+                    youtubeFullscreenModal.classList.remove('active');
+                    youtubeIframe.src = '';
+                    document.title = 'Player Highlights - Club Consult Africa | Premier Football Agency';
+                }
+            });
+            
+            // Close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && youtubeFullscreenModal.classList.contains('active')) {
+                    youtubeFullscreenModal.classList.remove('active');
+                    youtubeIframe.src = '';
+                    document.title = 'Player Highlights - Club Consult Africa | Premier Football Agency';
+                }
+            });
+        }
+        
+        // Player Filter Functionality
+        function initPlayerFilter() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const highlightItems = document.querySelectorAll('.youtube-highlight-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Filter highlight items
+                    highlightItems.forEach(item => {
+                        const categories = item.getAttribute('data-category').split(' ');
+                        
+                        if (filterValue === 'all' || categories.includes(filterValue)) {
+                            item.style.display = 'block';
+                            // Animate in
+                            gsap.fromTo(item, 
+                                { opacity: 0, y: 20 }, 
+                                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+                            );
+                        } else {
+                            // Animate out before hiding
+                            gsap.to(item, {
+                                opacity: 0,
+                                y: 20,
+                                duration: 0.3,
+                                onComplete: () => {
+                                    item.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        }
+        
+        /* 
+        IMPORTANT: When you add real Instagram embed codes, they will automatically 
+        load the Instagram embed.js script. The placeholder divs above show where 
+        to paste your actual Instagram embed codes.
+        
+        To get real Instagram embed codes:
+        1. Go to Instagram.com on desktop
+        2. Click on the post you want to embed
+        3. Click the three dots (...) in top right
+        4. Select "Embed"
+        5. Click "Copy Embed Code"
+        6. Paste the code in place of the placeholder divs
+        */
+    </script>
+</body>
+</html>
