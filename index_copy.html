@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Consult Africa - Premier Football Agency</title>
+    <title>Professional Services - Club Consult Africa</title>
     
-    <!-- CSS Libraries -->
+    <!-- CSS & Font Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <link rel="icon" type="image/x-icon" href="assets/img/logo3.png">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo3.png">
+    
+    <!-- GSAP Library for Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     
     <style>
         /* ===== RESET AND GLOBAL STYLES ===== */
@@ -31,6 +34,7 @@
             line-height: 1.7;
             overflow-x: hidden;
             background-color: #ffffff;
+            counter-reset: service-counter process-counter;
         }
         
         :root {
@@ -38,16 +42,10 @@
             --accent-color: #E63946;
             --secondary-color: #FDB827;
             --light-bg: #F8F9FA;
-            --dark-text: #111111;
             --light-text: #FFFFFF;
-            --gray-bg: #F8F9FA;
-            --border-color: #DEE2E6;
-            --section-spacing: 100px;
+            --section-spacing: 120px;
             --navbar-height: 120px;
             --navbar-height-scrolled: 80px;
-            --success-color: #28a745;
-            --error-color: #dc3545;
-            --info-color: #17a2b8;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -58,7 +56,7 @@
         
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -70,24 +68,26 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
         
         .section-title h2 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             position: relative;
             display: inline-block;
             color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .section-title h2::after {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 4px;
+            width: 100px;
+            height: 5px;
             background: var(--secondary-color);
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -95,8 +95,9 @@
         .section-title p {
             color: #666;
             max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
+            margin: 30px auto 0;
+            font-size: 1.2rem;
+            line-height: 1.8;
         }
         
         /* ===== NAVIGATION ===== */
@@ -106,12 +107,11 @@
             left: 0;
             width: 100%;
             height: var(--navbar-height);
-            background-color: rgba(10, 30, 60, 0.98);
+            background-color: rgba(10, 30, 60, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 2px solid transparent;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
         
         .navbar.scrolled {
@@ -197,8 +197,8 @@
             z-index: 1001;
         }
         
-        /* ===== HERO SECTION ===== */
-        .hero-section {
+        /* ===== VISUAL HERO SECTION ===== */
+        .visual-hero {
             min-height: 100vh;
             position: relative;
             display: flex;
@@ -206,135 +206,72 @@
             color: var(--light-text);
             overflow: hidden;
             padding-top: var(--navbar-height);
-            background: linear-gradient(135deg, var(--primary-color), #152a50);
         }
         
-        .hero-video-container {
+        .hero-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             z-index: 1;
         }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        
+        .hero-background img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(10, 30, 60, 0.85), rgba(10, 30, 60, 0.7));
-            z-index: 2;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
             object-fit: cover;
-            z-index: 1;
+            filter: brightness(0.7);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(10, 30, 60, 0.85) 0%, rgba(253, 184, 39, 0.1) 100%);
+            z-index: 2;
         }
         
         .hero-content {
             position: relative;
-            z-index: 4;
+            z-index: 3;
             width: 100%;
-            padding: 80px 0;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(10, 30, 60, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(253, 184, 39, 0.2);
         }
         
         .hero-tagline {
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 3px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--secondary-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: block;
         }
         
         .hero-title {
             font-size: 4.5rem;
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             line-height: 1.1;
-            max-width: 800px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 300;
             margin-bottom: 40px;
-            max-width: 700px;
             opacity: 0.95;
             line-height: 1.6;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .btn-primary, .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: 2px solid var(--secondary-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--light-text);
-            border: 2px solid var(--light-text);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--light-text);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
-        /* ===== SCROLL PROGRESS BAR ===== */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-            z-index: 1001;
-            transition: width 0.1s ease;
         }
         
         .hero-scroll-indicator {
@@ -342,957 +279,401 @@
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 4;
+            z-index: 3;
             color: var(--light-text);
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-scroll-indicator:hover {
-            color: var(--secondary-color);
-            transform: translateX(-50%) scale(1.1);
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-10px) translateX(-50%); }
-            60% { transform: translateY(-5px) translateX(-50%); }
-        }
-        
-        /* ===== ABOUT SECTION ===== */
-        #about {
-            background-color: white;
-        }
-        
-        .about-stats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .stat-item {
-            text-align: center;
-            flex: 1;
-            min-width: 200px;
-            padding: 30px 20px;
-            background: white;
-            border-radius: 10px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-top: 4px solid var(--accent-color);
-        }
-        
-        .stat-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            line-height: 1;
-        }
-        
-        /* ===== SERVICES SECTION ===== */
-        #services {
-            background-color: var(--light-bg);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 100%;
-            padding: 40px 30px;
-            border-left: 5px solid var(--accent-color);
-            position: relative;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.4s ease;
-        }
-        
-        .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* ===== TESTIMONIALS SECTION ===== */
-        #clients {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #152a50 100%);
-            color: var(--light-text);
-            position: relative;
-        }
-        
-        #clients .section-title h2 {
-            color: var(--light-text);
-        }
-        
-        #clients .section-title p {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        #clients .section-title h2::after {
-            background: var(--secondary-color);
-        }
-        
-        .testimonial-slider {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 50px 40px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 0 15px 30px;
-            transition: all 0.4s ease;
-        }
-        
-        .client-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 25px;
-            border: 3px solid var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .client-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 25px;
             font-size: 1.2rem;
-            line-height: 1.7;
-            position: relative;
-            padding: 0 20px;
-        }
-        
-        .client-name {
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 1.3rem;
-        }
-        
-        .client-club {
-            color: var(--secondary-color);
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-        
-        /* ===== BLOG SECTION ===== */
-        #blog {
-            background-color: var(--light-bg);
-        }
-        
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .blog-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 100%;
-        }
-        
-        .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .blog-image {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .blog-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .blog-card:hover .blog-image img {
-            transform: scale(1.1);
-        }
-        
-        .blog-content {
-            padding: 30px;
-        }
-        
-        .blog-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        
-        .blog-meta span {
-            display: flex;
-            align-items: center;
-        }
-        
-        .blog-meta i {
-            margin-right: 5px;
-        }
-        
-        .read-more {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .read-more i {
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-        
-        .read-more:hover {
-            color: var(--primary-color);
-        }
-        
-        .read-more:hover i {
-            transform: translateX(5px);
-        }
-        
-        /* ===== YOUTUBE HIGHLIGHTS SECTION ===== */
-        #highlights {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            position: relative;
-        }
-
-        #highlights .section-title h2 {
-            color: var(--light-text);
-        }
-
-        #highlights .section-title p {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        #highlights .section-title h2::after {
-            background: var(--secondary-color);
-        }
-
-        .youtube-highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .youtube-highlight-item {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 16/9;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: #000;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
         }
-
-        .youtube-highlight-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            z-index: 10;
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-10px) translateX(-50%); }
         }
-
-        .youtube-thumbnail-container {
+        
+        /* ===== VISUAL SERVICE CARDS ===== */
+        .visual-services {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .visual-service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 50px;
             position: relative;
-            width: 100%;
-            height: 100%;
+        }
+        
+        .visual-service-card {
+            position: relative;
+            height: 600px;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(100px) rotateX(10deg);
+            will-change: transform, opacity;
         }
-
-        .youtube-thumbnail {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .youtube-highlight-item:hover .youtube-thumbnail {
-            transform: scale(1.05);
-        }
-
-        .youtube-play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            opacity: 0.9;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .youtube-highlight-item:hover .youtube-play-button {
-            background: var(--secondary-color);
-            transform: translate(-50%, -50%) scale(1.1);
-            opacity: 1;
-        }
-
-        .youtube-overlay {
+        
+        .service-image-container {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(10, 30, 60, 0.9) 80%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 20px;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+            padding: 40px;
+            color: white;
         }
-
-        .youtube-highlight-item:hover .youtube-overlay {
-            opacity: 0.9;
-        }
-
-        .youtube-player-name {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: var(--light-text);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
-
-        .youtube-player-info {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            color: var(--secondary-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-        }
-
-        /* YouTube Fullscreen Modal */
-        .youtube-fullscreen-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .youtube-fullscreen-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .youtube-fullscreen-container {
-            width: 90%;
-            height: 90%;
-            position: relative;
-            max-width: 1200px;
-        }
-
-        .youtube-iframe-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background: #000;
-        }
-
-        .youtube-fullscreen-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .youtube-close-fullscreen {
+        
+        .service-number {
             position: absolute;
-            top: -50px;
-            right: 0;
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .youtube-close-fullscreen:hover {
-            background: var(--accent-color);
-            transform: rotate(90deg);
+            top: 30px;
+            right: 30px;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--secondary-color);
+            opacity: 0.3;
+            font-family: 'Montserrat', sans-serif;
         }
         
-        /* ===== PARTNERS SECTION ===== */
-        .partners-section {
-            background-color: white;
+        .service-content {
+            transform: translateY(30px);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .partners-grid {
+        .visual-service-card:hover .service-content {
+            transform: translateY(0);
+        }
+        
+        .visual-service-card:hover .service-image {
+            transform: scale(1.1);
+        }
+        
+        .service-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .service-content p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .service-features {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-        }
-        
-        .partner-logo {
-            height: 80px;
-            filter: grayscale(60%);
-            opacity: 0.7;
-            transition: all 0.4s ease;
-        }
-        
-        .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: translateY(-5px);
-        }
-        
-        /* ===== FORMS STYLING ===== */
-        .form-container {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-title {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .form-subtitle {
-            color: #666;
+            gap: 10px;
             margin-bottom: 30px;
         }
         
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
+        .service-feature-tag {
+            background: rgba(253, 184, 39, 0.2);
+            color: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--primary-color);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: white;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(253, 184, 39, 0.2);
-        }
-        
-        .form-control.error {
-            border-color: var(--accent-color);
-        }
-        
-        .error-message {
-            color: var(--accent-color);
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .form-checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .form-checkbox {
-            margin-top: 5px;
-        }
-        
-        .checkbox-label {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .checkbox-label a {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-        
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        /* ===== TALENT DISCOVERY FORM ===== */
-        #talent-form {
-            background-color: white;
-        }
-        
-        .talent-form-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .talent-form-info {
-            background: var(--primary-color);
-            color: white;
-            padding: 40px;
-            border-radius: 12px;
-            height: 100%;
-        }
-        
-        .talent-form-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .talent-form-info ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .talent-form-info li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        
-        .talent-form-info i {
-            color: var(--secondary-color);
-            margin-top: 5px;
-        }
-        
-        .talent-form-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-        }
-        
-        .talent-stat {
-            text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(253, 184, 39, 0.3);
         }
         
-        .talent-stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--secondary-color);
+        /* ===== ANIMATED STATS SECTION ===== */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a2f57 100%);
+            color: var(--light-text);
+            position: relative;
+            overflow: hidden;
         }
         
-        .talent-stat-label {
-            font-size: 14px;
-            opacity: 0.9;
+        .stats-section .section-title h2 {
+            color: var(--light-text);
         }
         
-        /* ===== PARTNERSHIP FORM ===== */
-        #partnership-form {
-            background-color: var(--light-bg);
+        .stats-section .section-title p {
+            color: rgba(255, 255, 255, 0.8);
         }
         
-        .partnership-form-container {
-            max-width: 800px;
-            margin: 0 auto;
+        .stats-section .section-title h2::after {
+            background: var(--secondary-color);
         }
         
-        .partnership-benefits {
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .benefit-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .benefit-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--secondary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--primary-color);
-            font-size: 24px;
-        }
-        
-        /* ===== SCOUTING FORM ===== */
-        #scouting-form {
-            background-color: white;
-        }
-        
-        .form-steps-container {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .form-steps-indicator {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .form-steps-indicator::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--border-color);
-            z-index: 1;
-        }
-        
-        .form-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            gap: 40px;
             position: relative;
             z-index: 2;
         }
         
-        .step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-step.active .step-number {
-            background: var(--secondary-color);
-            border-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-        
-        .form-step.completed .step-number {
-            background: var(--success-color);
-            border-color: var(--success-color);
-            color: white;
-        }
-        
-        .step-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #666;
-        }
-        
-        .form-step.active .step-label {
-            color: var(--primary-color);
-        }
-        
-        .form-step.completed .step-label {
-            color: var(--success-color);
-        }
-        
-        .form-steps-content {
-            position: relative;
-            min-height: 400px;
-        }
-        
-        .form-step-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .form-step-content.active {
-            opacity: 1;
-            visibility: visible;
-            position: relative;
-        }
-        
-        /* ===== CONTACT SECTION ===== */
-        #contact {
-            background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-        }
-        
-        .contact-form h3, .contact-info h3 {
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-        }
-        
-        .contact-info-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 25px;
-        }
-        
-        .contact-info-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--secondary-color);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
-        /* ===== INSTAGRAM SECTION ===== */
-        .instagram-section {
-            background-color: var(--light-bg);
-        }
-
-        .instagram-header {
+        .stat-card {
             text-align: center;
-            margin-bottom: 40px;
+            padding: 50px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            will-change: transform, opacity;
         }
-
-        .instagram-handle {
-            font-size: 1.8rem;
-            font-weight: 700;
+        
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--secondary-color);
+        }
+        
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
             color: var(--primary-color);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            transition: all 0.4s ease;
+        }
+        
+        .stat-card:hover .stat-icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+        
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--secondary-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
         }
-
-        .instagram-handle a {
-            color: #E1306C;
-            text-decoration: none;
-            transition: color 0.3s ease;
+        
+        /* ===== VISUAL PROCESS SECTION ===== */
+        .visual-process {
+            background-color: white;
+            position: relative;
         }
-
-        .instagram-handle a:hover {
-            color: #C13584;
+        
+        .process-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-
-        .instagram-grid {
+        
+        .process-step-visual {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 120px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-100px);
+            will-change: transform, opacity;
         }
-
-        /* Instagram Embed Container */
-        .instagram-embed-wrapper {
-            background: white;
-            border-radius: 12px;
+        
+        .process-step-visual:nth-child(even) {
+            transform: translateX(100px);
+        }
+        
+        .process-step-visual:nth-child(even) .process-image {
+            order: 2;
+        }
+        
+        .process-step-visual:nth-child(even) .process-content {
+            order: 1;
+            text-align: right;
+        }
+        
+        .process-image {
+            height: 500px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .process-image img {
+            width: 100%;
             height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .instagram-embed-wrapper:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        
+        .process-step-visual:hover .process-image img {
+            transform: scale(1.05);
         }
-
-        .btn-instagram {
+        
+        .process-number {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(253, 184, 39, 0.3);
+        }
+        
+        .process-step-visual:nth-child(even) .process-number {
+            left: auto;
+            right: -30px;
+        }
+        
+        .process-content {
+            padding: 40px;
+        }
+        
+        .process-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .process-content p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .visual-cta {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #f0c01a 100%);
+            color: var(--primary-color);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .visual-cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+        
+        .visual-cta p {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 32px;
-            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C);
-            color: white;
+            padding: 20px 40px;
+            background: var(--primary-color);
+            color: var(--light-text);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-weight: 700;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .btn-instagram:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
-
-        /* Instagram Media Styling */
-        .instagram-media {
-            background: #FFF;
-            border: 0;
-            border-radius: 3px;
-            box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);
-            margin: 1px;
-            max-width: 540px;
-            min-width: 326px;
-            padding: 0;
-            width: 99.375%;
-            width: -webkit-calc(100% - 2px);
-            width: calc(100% - 2px);
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 40px;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .instagram-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .instagram-handle {
-                font-size: 1.5rem;
-            }
+        
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: var(--light-text);
+            transform: translateY(-5px);
         }
-
-        @media (max-width: 576px) {
-            .instagram-handle {
-                font-size: 1.3rem;
-            }
-        }
+        
         /* ===== FOOTER ===== */
         footer {
             background: linear-gradient(135deg, var(--primary-color) 0%, #0a1629 100%);
             color: var(--light-text);
-            padding: 80px 0 30px;
+            padding: 100px 0 40px;
             position: relative;
         }
         
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+            gap: 50px;
+            margin-bottom: 60px;
         }
         
         .footer-column h4 {
-            font-size: 1.3rem;
-            margin-bottom: 25px;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
         
         .footer-column h4::after {
@@ -1301,7 +682,7 @@
             left: 0;
             bottom: 0;
             width: 50px;
-            height: 2px;
+            height: 3px;
             background-color: var(--secondary-color);
         }
         
@@ -1310,7 +691,7 @@
         }
         
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         
         .footer-links a {
@@ -1322,40 +703,13 @@
         }
         
         .footer-links a i {
-            margin-right: 8px;
+            margin-right: 10px;
             font-size: 12px;
         }
         
         .footer-links a:hover {
             color: var(--secondary-color);
-            padding-left: 5px;
-        }
-        
-        .newsletter-form {
-            margin-top: 15px;
-        }
-        
-        .newsletter-input {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Open Sans', sans-serif;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .newsletter-btn {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
+            padding-left: 10px;
         }
         
         .footer-social {
@@ -1366,11 +720,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            margin: 0 8px;
+            margin: 0 10px;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -1378,142 +732,61 @@
         .social-icon:hover {
             background-color: var(--secondary-color);
             color: var(--primary-color);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
         }
         
         .copyright {
-            margin-top: 50px;
-            padding-top: 20px;
+            margin-top: 60px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             text-align: center;
         }
-        
-        /* ===== NOTIFICATION POPUP ===== */
-        .notification-popup {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            z-index: 2000;
-            max-width: 400px;
-            width: 90%;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: none;
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .notification-popup.show {
-            display: block;
-            transform: translateX(0);
-        }
-        
-        .notification-popup.success {
-            background: linear-gradient(135deg, rgba(40, 167, 69, 0.95), rgba(40, 167, 69, 0.8));
-            border-left: 5px solid #28a745;
-        }
-        
-        .notification-popup.error {
-            background: linear-gradient(135deg, rgba(220, 53, 69, 0.95), rgba(220, 53, 69, 0.8));
-            border-left: 5px solid #dc3545;
-        }
-        
-        .notification-popup.info {
-            background: linear-gradient(135deg, rgba(23, 162, 184, 0.95), rgba(23, 162, 184, 0.8));
-            border-left: 5px solid #17a2b8;
-        }
-        
-        .notification-header {
+
+        /* ===== NEWSLETTER FORM STYLES ===== */
+        .newsletter-form {
             display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+            flex-direction: column;
+            gap: 15px;
         }
-        
-        .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        
-        .notification-popup.success .notification-icon {
-            background: rgba(255, 255, 255, 0.2);
+
+        .newsletter-input {
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
-        
-        .notification-popup.error .notification-icon {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: rgba(255, 255, 255, 0.1);
         }
-        
-        .notification-popup.info .notification-icon {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
-        
-        .notification-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: white;
-            margin: 0;
-        }
-        
-        .notification-message {
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .notification-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
+
+        .newsletter-btn {
+            padding: 15px 20px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
             border: none;
-            color: white;
-            font-size: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
-        
-        .notification-close:hover {
-            opacity: 1;
-        }
-        
-        .notification-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.5);
-            width: 100%;
-            border-radius: 0 0 12px 12px;
-            overflow: hidden;
-        }
-        
-        .notification-progress-bar {
-            height: 100%;
-            background: white;
-            width: 100%;
-            transform: translateX(-100%);
-            animation: progressBar 5s linear forwards;
-        }
-        
-        @keyframes progressBar {
-            to { transform: translateX(0); }
+
+        .newsletter-btn:hover {
+            background: #f0c01a;
+            transform: translateY(-2px);
         }
         
         /* ===== RESPONSIVE STYLES ===== */
@@ -1521,31 +794,52 @@
             .hero-title {
                 font-size: 3.8rem;
             }
+            
+            .visual-service-grid {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .process-step-visual {
+                gap: 50px;
+            }
         }
         
         @media (max-width: 992px) {
+            .section-title h2 {
+                font-size: 2.8rem;
+            }
+            
             .hero-title {
                 font-size: 3.2rem;
             }
             
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .section {
-                padding: 80px 0;
-            }
-            
-            .services-grid, .blog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
-            
-            .talent-form-container {
+            .process-step-visual {
                 grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 80px;
             }
             
-            .youtube-highlights-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .process-step-visual:nth-child(even) .process-image,
+            .process-step-visual:nth-child(even) .process-content {
+                order: initial;
+            }
+            
+            .process-content {
+                text-align: center !important;
+                padding: 20px;
+            }
+            
+            .process-number {
+                top: -30px;
+                left: 50% !important;
+                transform: translateX(-50%);
+                right: auto !important;
+            }
+            
+            .visual-cta h2 {
+                font-size: 2.8rem;
             }
         }
         
@@ -1585,150 +879,86 @@
             }
             
             .hero-title {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
-            .hero-tagline {
-                font-size: 1rem;
-                letter-spacing: 2px;
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
             
-            .hero-buttons {
-                flex-direction: column;
-                gap: 15px;
+            .visual-service-card {
+                height: 500px;
             }
             
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                text-align: center;
+            .service-content h3 {
+                font-size: 1.8rem;
             }
             
-            .section-title h2 {
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .process-image {
+                height: 400px;
+            }
+            
+            .visual-cta h2 {
                 font-size: 2.2rem;
-            }
-            
-            .form-container {
-                padding: 25px;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .form-steps-indicator {
-                flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
             }
             
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .talent-form-stats {
-                grid-template-columns: 1fr;
+                gap: 40px;
             }
         }
         
         @media (max-width: 576px) {
             .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
+                font-size: 2rem;
             }
             
             .section-title h2 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
             
-            .service-card, .testimonial-card, .blog-content {
+            .visual-service-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .visual-service-card {
+                height: 450px;
+            }
+            
+            .service-overlay {
                 padding: 25px;
             }
             
-            .hero-video-container {
-                display: none;
+            .service-number {
+                font-size: 3.5rem;
             }
             
-            .stat-item {
-                min-width: 100%;
-            }
-            
-            .blog-grid {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
             
-            .logo img {
-                height: 80px;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .navbar.scrolled .logo img {
-                height: 35px;
-            }
-            
-            .youtube-highlights-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .youtube-fullscreen-container {
-                width: 95%;
-                height: 80%;
-            }
-            
-            .youtube-close-fullscreen {
-                top: -40px;
-                right: 10px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-            
-            .youtube-play-button {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .notification-popup {
-                top: 80px;
-                right: 15px;
-                left: 15px;
-                width: auto;
-                max-width: none;
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress"></div>
-    
-    <!-- Notification Popup -->
-    <div class="notification-popup" id="notificationPopup">
-        <button class="notification-close" id="notificationClose">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="notification-header">
-            <div class="notification-icon" id="notificationIcon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3 class="notification-title" id="notificationTitle">Success!</h3>
-        </div>
-        <div class="notification-message" id="notificationMessage">
-            Your message has been sent successfully.
-        </div>
-        <div class="notification-progress">
-            <div class="notification-progress-bar"></div>
-        </div>
-    </div>
-    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <a href="index.html"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+                <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
             </div>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1736,680 +966,124 @@
             </button>
             
             <ul class="nav-links" id="mainNav">
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="about/"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="#services"><i class="fas fa-cogs"></i> Services</a></li>
-                <li><a href="players/"><i class="fas fa-users"></i> Our Players</a></li>
-                <li><a href="blog/"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="highlights/"><i class="fas fa-video"></i> Highlights</a></li>
-                <li><a href="#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
-                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../about/"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html" class="active"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="../players/"><i class="fas fa-users"></i> Our Players</a></li>
+                <li><a href="../blog/"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="../highlights/"><i class="fas fa-video"></i> Highlights</a></li>
+                <li><a href="../index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
+                <li><a href="../index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <!-- Video Container & Overlay -->
-        <div class="hero-video-container">
-            <div class="video-overlay"></div>
-            <video id="heroVideo" class="hero-video" autoplay loop muted playsinline preload="auto">
-                <source src="assets/vid/home.mp4" type="video/mp4">
-                <source src="assets/vid/home.webm" type="video/webm">
-                Your browser does not support the video tag.
-            </video>
+    <!-- Visual Hero Section -->
+    <section class="visual-hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1986&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Football Agency Professional Services" loading="lazy">
         </div>
+        <div class="hero-overlay"></div>
         
-        <!-- Hero Content -->
         <div class="container">
             <div class="hero-content">
-                <span class="hero-tagline">Africa's Renowned Football Agency</span>
-                <h1 class="hero-title">Club Consult Africa</h1>
-                <p class="hero-subtitle">We are Africa's leading football agency, connecting exceptional talent with global opportunities through professional representation, strategic career management, and unparalleled industry expertise.</p>
-                <div class="hero-buttons">
-                    <a href="#talent-form" class="btn-primary">Join Our Talent Pool</a>
-                    <a href="#partnership-form" class="btn-secondary">Partner With Us</a>
-                </div>
+                <span class="hero-tagline">Professional Football Representation</span>
+                <h1 class="hero-title">Comprehensive Career Management Services</h1>
+                <p class="hero-subtitle">We provide end-to-end solutions for professional footballers, combining industry expertise with personalized strategic support to maximize potential and ensure long-term success on and off the pitch.</p>
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <div class="hero-scroll-indicator" id="scrollIndicator">
-            <i class="fas fa-chevron-down fa-2x"></i>
+            <span>Explore Our Services</span><br>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
+    <!-- Visual Service Cards -->
+    <section id="visual-services" class="section visual-services">
         <div class="container">
             <div class="section-title">
-                <h2>Who We Are</h2>
-                <p>Club Consult Africa is the continent's premier football agency, specializing in professional player representation, career development, and strategic partnerships.</p>
+                <h2>Our Core Services</h2>
+                <p>Comprehensive professional support designed specifically for the modern footballer's career journey</p>
             </div>
             
-            <div class="about-content">
-                <div style="max-width: 800px; margin: 0 auto 50px;">
-                    <p style="font-size: 1.1rem; margin-bottom: 30px; text-align: center;">
-                        Founded with a vision to bridge African football talent with global opportunities, we have established ourselves as trusted partners for professional footballers across the continent. Our deep understanding of African football culture combined with international expertise sets us apart in the industry.
-                    </p>
-                </div>
-                
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="stat-number">15+</div>
-                        <p style="color: #666; font-weight: 600;">Years Experience</p>
+            <div class="visual-service-grid">
+                <!-- Service 1 -->
+                <div class="visual-service-card" id="service-card-1">
+                    <div class="service-number">01</div>
+                    <div class="service-image-container">
+                        <img src="https://plus.unsplash.com/premium_photo-1661868926397-0083f0503c07?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Professional Football Representation" class="service-image" loading="lazy">
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-user-friends"></i>
-                        </div>
-                        <div class="stat-number">50+</div>
-                        <p style="color: #666; font-weight: 600;">Professional Clients</p>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-globe-africa"></i>
-                        </div>
-                        <div class="stat-number">20+</div>
-                        <p style="color: #666; font-weight: 600;">Countries Covered</p>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <div class="stat-number">100+</div>
-                        <p style="color: #666; font-weight: 600;">Successful Transfers</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section services-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Services</h2>
-                <p>Comprehensive career management services designed to maximize player potential, career longevity, and financial success.</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3>Athlete Representation</h3>
-                    <p>We provide dedicated, personalized management with 24/7 support. Our team handles all aspects of your professional career including contract management, career planning, and daily support services.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Contract Negotiations</h3>
-                    <p>Our experienced negotiators ensure maximum value in every contract. We specialize in transfer agreements, salary negotiations, performance bonuses, and image rights management.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3>Endorsements & Sponsorships</h3>
-                    <p>We build and manage personal brands through strategic partnerships with global brands. Our marketing team develops customized brand strategies for each athlete.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Career Development</h3>
-                    <p>We provide career planning, skills development, and educational support to ensure longevity in professional football and successful transition to post-career opportunities.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <h3>Scouting & Recruitment</h3>
-                    <p>Our extensive scouting network across Africa identifies promising talent. We provide comprehensive evaluation and development pathways for young athletes.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Wellness & Support</h3>
-                    <p>We provide access to sports psychologists, nutritionists, and medical professionals to ensure our athletes maintain peak physical and mental condition.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="clients" class="section testimonials-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Testimonials</h2>
-                <p>Hear from the professional footballers, clubs, and partners who trust us with their careers and partnerships.</p>
-            </div>
-            
-            <div class="testimonial-slider swiper">
-                <div class="swiper-wrapper">
-                    <div class="testimonial-card swiper-slide">
-                        <div class="client-photo">
-                            <img src="assets/img/ayarna.jpg" alt="Reuben Ayarna">
-                        </div>
-                        <div class="testimonial-text">
-                            "The decision to work with CCA was one of the best decisions I've made in terms of choosing representation. They are very professional and always look out for the best interests of their clients."
-                        </div>
-                        <div class="client-name">Reuben Ayarna</div>
-                        <div class="client-club">Ilves – Finland</div>
-                    </div>
-                    
-                    <div class="testimonial-card swiper-slide">
-                        <div class="client-photo">
-                            <img src="assets/img/Owusu.jpg" alt="Samuel Ofori">
-                        </div>
-                        <div class="testimonial-text">
-                            "I wanted to cooperate with someone who will respect me as a person and as a player. CCA has shown me love and been my family since day one."
-                        </div>
-                        <div class="client-name">Samuel Owusu</div>
-                        <div class="client-club">Al-Fayha - Saudi Arabia</div>
-                    </div>
-                    
-                    <div class="testimonial-card swiper-slide">
-                        <div class="client-photo">
-                            <img src="assets/img/waris.jpg" alt="Warris">
-                        </div>
-                        <div class="testimonial-text">
-                            "Working with Club Consult has exceled my career in all kinds of ways! The family environment and care along with professional work ethic is unmatched."
-                        </div>
-                        <div class="client-name">Abdul-Majeed Waris</div>
-                        <div class="client-club">FC Porto - Portugal</div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="section blog-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Latest Insights</h2>
-                <p>Stay updated with the latest news, insights, and analysis from the world of football and sports management.</p>
-            </div>
-            
-            <div class="blog-grid">
-                <div class="blog-card">
-                    <div class="blog-image">
-                        <img src="assets/img/press/cca_es.jpeg" alt="Football Training">
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> Jan 1, 2026</span>
-                            <span><i class="far fa-clock"></i> 5 min read</span>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">Club Consult Africa Announces Elite Scouting Tournament 2026 in Accra</h3>
-                        <p>Club Consult Africa Limited has unveiled the CCA Elite Scouting Tournament 2026, set to take place at UNION PARK, University of Ghana from January 5–7 and January 9–12, 2026. The event will showcase over 120 young football talents aged 16–21 from eight youth teams, with renowned global scouts and FIFA officials in attendance. Media houses are invited to partner in highlighting this landmark youth football event, which aims to reinforce Ghana’s role as a hub for developing world-class players.</p>
-                        <a href="articles/cca-elite-scouting-tournament-2026/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Youth Football Development">
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> November 28, 2025</span>
-                            <span><i class="far fa-clock"></i> 7 min read</span>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">The Future of African Youth Football Development</h3>
-                        <p>An in-depth look at how structured youth development programs are transforming African football. We explore the success stories, challenges, and future prospects for nurturing world-class talent on the continent through academies, tournaments, and international partnerships.</p>
-                        <a href="articles/future-african-youth-football-development/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Football Strategy">
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> November 12, 2025</span>
-                            <span><i class="far fa-clock"></i> 6 min read</span>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">Global Scouts Descend on Ghana for Talent Identification</h3>
-                        <p>With the upcoming CCA Elite Scouting Tournament, over 30 international scouts from top European clubs are expected to attend. This article examines how African talent identification has evolved and what scouts are looking for in the next generation of football stars.</p>
-                        <a href="articles/global-scouts-ghana-talent-identification/" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="blog/" class="btn-primary">View All Articles</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- YouTube Player Highlights Section -->
-    <section id="highlights" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Player Highlights</h2>
-                <p>Watch exclusive footage of our top talent in action. Click any video to watch full highlights.</p>
-            </div>
-            
-            <div class="youtube-highlights-grid">
-                <!-- Player 1 -->
-                <div class="youtube-highlight-item" 
-                    data-youtube-id="QvQtKlrs3DI" 
-                    data-player="Reuben Ayarna"
-                    data-info="Midfielder • Ilves, Finland">
-                    <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/QvQtKlrs3DI/maxresdefault.jpg" 
-                            alt="Reuben Ayarna Highlights" 
-                            class="youtube-thumbnail">
-                        <div class="youtube-play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="youtube-overlay">
-                        <div class="youtube-player-name">Reuben Ayarna</div>
-                        <div class="youtube-player-info">Midfielder • Ilves, Finland</div>
-                    </div>
-                </div>
-                
-                <!-- Player 2 -->
-                <div class="youtube-highlight-item" 
-                    data-youtube-id="1jqhnAx3R2w" 
-                    data-player="Samuel Owusu"
-                    data-info="Winger • Al-Fayha, Saudi Arabia">
-                    <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/1jqhnAx3R2w/maxresdefault.jpg" 
-                            alt="Samuel Owusu Highlights" 
-                            class="youtube-thumbnail">
-                        <div class="youtube-play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="youtube-overlay">
-                        <div class="youtube-player-name">Samuel Owusu</div>
-                        <div class="youtube-player-info">Winger • Al-Fayha, Saudi Arabia</div>
-                    </div>
-                </div>
-                
-                <!-- Player 3 -->
-                <div class="youtube-highlight-item" 
-                    data-youtube-id="NbpQ2M3gjv0" 
-                    data-player="Abdul-Majeed Waris"
-                    data-info="Forward • FC Porto, Portugal">
-                    <div class="youtube-thumbnail-container">
-                        <img src="https://img.youtube.com/vi/NbpQ2M3gjv0/maxresdefault.jpg" 
-                            alt="Abdul-Majeed Waris Highlights" 
-                            class="youtube-thumbnail">
-                        <div class="youtube-play-button">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="youtube-overlay">
-                        <div class="youtube-player-name">Abdul-Majeed Waris</div>
-                        <div class="youtube-player-info">Forward • FC Porto, Portugal</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="highlights/" class="btn-primary">Discover More Talent</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- YouTube Fullscreen Modal -->
-    <div class="youtube-fullscreen-modal" id="youtubeFullscreenModal">
-        <div class="youtube-fullscreen-container">
-            <div class="youtube-iframe-container">
-                <iframe class="youtube-fullscreen-iframe" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen></iframe>
-            </div>
-            <button class="youtube-close-fullscreen" id="youtubeCloseFullscreen">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Talent Discovery Form -->
-    <section id="talent-form" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Join Our Talent Pool</h2>
-                <p>Submit your profile for consideration by our scouting network. We're looking for exceptional talent across all positions.</p>
-            </div>
-            
-            <div class="talent-form-container">
-                <div class="talent-form-info">
-                    <h3>Why Join Club Consult Africa?</h3>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Access to our global network of clubs and scouts</li>
-                        <li><i class="fas fa-check-circle"></i> Professional contract negotiation and management</li>
-                        <li><i class="fas fa-check-circle"></i> Career development and mentorship programs</li>
-                        <li><i class="fas fa-check-circle"></i> Financial planning and wealth management</li>
-                        <li><i class="fas fa-check-circle"></i> Media and brand development support</li>
-                        <li><i class="fas fa-check-circle"></i> 24/7 player support services</li>
-                    </ul>
-                    
-                    <div class="talent-form-stats">
-                        <div class="talent-stat">
-                            <div class="talent-stat-number">50+</div>
-                            <div class="talent-stat-label">Professional Clients</div>
-                        </div>
-                        <div class="talent-stat">
-                            <div class="talent-stat-number">100+</div>
-                            <div class="talent-stat-label">Successful Transfers</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-container">
-                    <h3 class="form-title">Player Information Form</h3>
-                    <p class="form-subtitle">Complete this form to be considered for representation</p>
-                    
-                    <form id="talentDiscoveryForm" action="https://formspree.io/f/mvgakjww" method="POST">
-                        <input type="hidden" name="_subject" value="New Talent Application - Club Consult Africa">
-                        <input type="hidden" name="_form_type" value="talent_discovery">
-                        
-                        <div class="form-group">
-                            <label class="form-label">Full Name *</label>
-                            <input type="text" class="form-control" name="full_name" required>
-                            <div class="error-message" id="nameError">Please enter your full name</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Date of Birth *</label>
-                            <input type="date" class="form-control" name="dob" required>
-                            <div class="error-message" id="dobError">Please enter your date of birth</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nationality *</label>
-                            <input type="text" class="form-control" name="nationality" required>
-                            <div class="error-message" id="nationalityError">Please enter your nationality</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Primary Position *</label>
-                            <select class="form-control" name="position" required>
-                                <option value="">Select Position</option>
-                                <option value="goalkeeper">Goalkeeper</option>
-                                <option value="defender">Defender</option>
-                                <option value="midfielder">Midfielder</option>
-                                <option value="forward">Forward</option>
-                            </select>
-                            <div class="error-message" id="positionError">Please select your primary position</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Current Club</label>
-                            <input type="text" class="form-control" name="current_club">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Email Address *</label>
-                            <input type="email" class="form-control" name="email" required>
-                            <div class="error-message" id="emailError">Please enter a valid email address</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Phone Number *</label>
-                            <input type="tel" class="form-control" name="phone" required>
-                            <div class="error-message" id="phoneError">Please enter a valid phone number</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Video Highlights Link</label>
-                            <input type="url" class="form-control" name="video_link" placeholder="YouTube, Vimeo, or other video link">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Career Goals & Aspirations</label>
-                            <textarea class="form-control" name="career_goals" rows="4" placeholder="Tell us about your career goals and what you're looking for in representation"></textarea>
-                        </div>
-                        
-                        <div class="form-checkbox-group">
-                            <input type="checkbox" class="form-checkbox" id="privacyConsent" name="privacy_consent" required>
-                            <label for="privacyConsent" class="checkbox-label">
-                                I agree to the <a href="#">Privacy Policy</a> and consent to Club Consult Africa processing my personal data for talent evaluation purposes.
-                            </label>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary" id="submitTalentForm">Submit Application</button>
-                            <button type="reset" class="btn-secondary">Reset Form</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partnership Form -->
-    <section id="partnership-form" class="section" style="background-color: var(--light-bg);">
-        <div class="container">
-            <div class="section-title">
-                <h2>Partnership Opportunities</h2>
-                <p>Connect with Africa's top football talent through strategic partnerships</p>
-            </div>
-            
-            <div class="partnership-form-container">
-                <div class="partnership-benefits">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h4>Talent Access</h4>
-                        <p>Direct access to Africa's most promising football talent</p>
-                    </div>
-                    
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h4>Brand Exposure</h4>
-                        <p>Connect with passionate football audiences across the continent</p>
-                    </div>
-                    
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h4>Strategic Alignment</h4>
-                        <p>Partnerships that align with your brand values and objectives</p>
-                    </div>
-                </div>
-                
-                <div class="form-container">
-                    <h3 class="form-title">Partnership Inquiry</h3>
-                    <p class="form-subtitle">Interested in partnering with Club Consult Africa? Tell us about your organization.</p>
-                    
-                    <form id="partnershipForm" action="https://formspree.io/f/mvgakjww" method="POST">
-                        <input type="hidden" name="_subject" value="New Partnership Inquiry - Club Consult Africa">
-                        <input type="hidden" name="_form_type" value="partnership">
-                        
-                        <div class="form-group">
-                            <label class="form-label">Organization Name *</label>
-                            <input type="text" class="form-control" name="organization" required>
-                            <div class="error-message" id="orgError">Please enter your organization name</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Organization Type *</label>
-                            <select class="form-control" name="org_type" required>
-                                <option value="">Select Type</option>
-                                <option value="club">Football Club</option>
-                                <option value="brand">Brand/Sponsor</option>
-                                <option value="media">Media Organization</option>
-                                <option value="academy">Football Academy</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <div class="error-message" id="orgTypeError">Please select organization type</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Contact Person *</label>
-                            <input type="text" class="form-control" name="contact_person" required>
-                            <div class="error-message" id="contactError">Please enter contact person name</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Email Address *</label>
-                            <input type="email" class="form-control" name="email" required>
-                            <div class="error-message" id="partnershipEmailError">Please enter a valid email address</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" name="phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Country *</label>
-                            <input type="text" class="form-control" name="country" required>
-                            <div class="error-message" id="countryError">Please enter your country</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Partnership Interest *</label>
-                            <select class="form-control" name="partnership_interest" required>
-                                <option value="">Select Interest</option>
-                                <option value="sponsorship">Sponsorship</option>
-                                <option value="talent_scouting">Talent Scouting</option>
-                                <option value="brand_ambassador">Brand Ambassador</option>
-                                <option value="joint_events">Joint Events/Tournaments</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <div class="error-message" id="interestError">Please select partnership interest</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Additional Information</label>
-                            <textarea class="form-control" name="additional_info" rows="4" placeholder="Tell us more about your organization and partnership goals"></textarea>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary" id="submitPartnershipForm">Submit Partnership Inquiry</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-                <p>Ready to elevate your career? Contact us today for a confidential consultation.</p>
-            </div>
-            
-            <div class="contact-container">
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form id="contactForm" action="https://formspree.io/f/mvgakjww" method="POST">
-                        <input type="hidden" name="_subject" value="New Contact Form Submission - Club Consult Africa">
-                        <input type="hidden" name="_form_type" value="general_contact">
-                        
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Your Full Name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Your Email Address" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number">
-                        </div>
-                        
-                        <div class="form-group">
-                            <select class="form-control" name="inquiry_type" required>
-                                <option value="" disabled selected>Select Inquiry Type</option>
-                                <option value="player">Player Representation</option>
-                                <option value="transfer">Transfer Inquiry</option>
-                                <option value="scouting">Scouting Services</option>
-                                <option value="partnership">Partnership Opportunity</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea class="form-control" name="message" rows="6" placeholder="Your Message" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary" style="width: 100%;" id="submitContactForm">Send Message</button>
-                    </form>
-                </div>
-                
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div style="margin-bottom: 30px;">
-                        <div class="contact-info-item">
-                            <div class="contact-info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <p style="font-weight: 600; margin-bottom: 5px;">Email</p>
-                                <p>info@clubconsultafrica.org</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-info-item">
-                            <div class="contact-info-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <p style="font-weight: 600; margin-bottom: 5px;">Phone</p>
-                                <p>+233 123 456 789</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-info-item">
-                            <div class="contact-info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <p style="font-weight: 600; margin-bottom: 5px;">Headquarters</p>
-                                <p>JV29+FH6, Tse Addo High Street, Tebibiano - Tse Addo, Accra, Ghana</p>
+                    <div class="service-overlay">
+                        <div class="service-content">
+                            <h3>Professional Representation</h3>
+                            <p>Dedicated 24/7 management with personalized career strategy, contract oversight, and comprehensive support throughout your professional journey.</p>
+                            <div class="service-features">
+                                <span class="service-feature-tag">Career Planning</span>
+                                <span class="service-feature-tag">24/7 Support</span>
+                                <span class="service-feature-tag">Contract Management</span>
+                                <span class="service-feature-tag">Personal Guidance</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h4 style="margin-bottom: 20px; color: var(--primary-color);">Connect With Us</h4>
-                        <div class="footer-social">
-                            <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/" class="social-icon" target="_blank">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="https://www.youtube.com/channel/UCbFCo17_fMGdNh5AVGJZ6vw" class="social-icon" target="_blank">
-                                <i class="fab fa-youtube"></i>
-                            </a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="visual-service-card" id="service-card-2">
+                    <div class="service-number">02</div>
+                    <div class="service-image-container">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Contract Negotiations" class="service-image" loading="lazy">
+                    </div>
+                    <div class="service-overlay">
+                        <div class="service-content">
+                            <h3>Contract Negotiations</h3>
+                            <p>Expert negotiation of transfer agreements, salary packages, performance bonuses, and image rights to secure optimal terms and conditions.</p>
+                            <div class="service-features">
+                                <span class="service-feature-tag">Transfer Agreements</span>
+                                <span class="service-feature-tag">Salary Optimization</span>
+                                <span class="service-feature-tag">Bonus Structures</span>
+                                <span class="service-feature-tag">Image Rights</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="visual-service-card" id="service-card-3">
+                    <div class="service-number">03</div>
+                    <div class="service-image-container">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2065&q=80" alt="Brand & Sponsorship Management" class="service-image" loading="lazy">
+                    </div>
+                    <div class="service-overlay">
+                        <div class="service-content">
+                            <h3>Brand & Sponsorship Management</h3>
+                            <p>Strategic brand development through partnerships with global companies, customized marketing strategies, and media relations management.</p>
+                            <div class="service-features">
+                                <span class="service-feature-tag">Brand Partnerships</span>
+                                <span class="service-feature-tag">Marketing Strategy</span>
+                                <span class="service-feature-tag">Media Relations</span>
+                                <span class="service-feature-tag">Social Media</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="visual-service-card" id="service-card-4">
+                    <div class="service-number">04</div>
+                    <div class="service-image-container">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Career Development" class="service-image" loading="lazy">
+                    </div>
+                    <div class="service-overlay">
+                        <div class="service-content">
+                            <h3>Career Development</h3>
+                            <p>Holistic career planning, skills development programs, educational support, and post-career transition strategy for long-term success.</p>
+                            <div class="service-features">
+                                <span class="service-feature-tag">Long-term Planning</span>
+                                <span class="service-feature-tag">Skills Development</span>
+                                <span class="service-feature-tag">Education Support</span>
+                                <span class="service-feature-tag">Transition Strategy</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2417,66 +1091,126 @@
         </div>
     </section>
 
-    <!-- Partners Section -->
-    <section class="section partners-section">
+    <!-- Animated Stats Section -->
+    <section class="section stats-section">
         <div class="container">
             <div class="section-title">
-                <h2>Our Partners</h2>
-                <p>We collaborate with leading clubs, brands, and organizations worldwide.</p>
+                <h2>Our Impact & Experience</h2>
+                <p>Quantifying our commitment to excellence in African football representation</p>
             </div>
             
-            <div class="partners-grid">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" alt="FC Barcelona" class="partner-logo" style="height: 50px;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/1200px-Liverpool_FC.svg.png" alt="Liverpool FC" class="partner-logo" style="height: 60px;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Manchester_United_FC_crest.svg/1200px-Manchester_United_FC_crest.svg.png" alt="Manchester United" class="partner-logo" style="height: 55px;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Orlando_Pirates_FC_logo.svg/1200px-Orlando_Pirates_FC_logo.svg.png" alt="Orlando Pirates" class="partner-logo" style="height: 60px;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Kaizer_Chiefs_logo.svg/1200px-Kaizer_Chiefs_logo.svg.png" alt="Kaizer Chiefs" class="partner-logo" style="height: 60px;">
+            <div class="stats-grid">
+                <div class="stat-card" id="stat-1">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number" id="counter-1">15</div>
+                    <div class="stat-label">Years of Industry Experience</div>
+                </div>
+                
+                <div class="stat-card" id="stat-2">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="stat-number" id="counter-2">50+</div>
+                    <div class="stat-label">Professional Athletes Represented</div>
+                </div>
+                
+                <div class="stat-card" id="stat-3">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <div class="stat-number" id="counter-3">20+</div>
+                    <div class="stat-label">Countries with Player Placements</div>
+                </div>
+                
+                <div class="stat-card" id="stat-4">
+                    <div class="stat-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="stat-number" id="counter-4">100+</div>
+                    <div class="stat-label">Successful Career Transfers</div>
+                </div>
             </div>
         </div>
     </section>
 
-     <!-- Instagram Feed Section -->
-    <section id="instagram-feed" class="section instagram-section">
+    <!-- Visual Process Section -->
+    <section class="section visual-process">
         <div class="container">
             <div class="section-title">
-                <h2>Behind The Scenes</h2>
-                <p>Follow our journey on Instagram for exclusive content, player announcements, and training sessions</p>
+                <h2>Our Professional Process</h2>
+                <p>A systematic, proven approach to managing football careers with precision and expertise</p>
             </div>
             
-            <div class="instagram-header">
-                <div class="instagram-handle">
-                    <i class="fab fa-instagram"></i>
-                    <a href="https://www.instagram.com/clubconsultafrica/" target="_blank">@clubconsultafrica</a>
-                </div>
-                <p style="color: #666; max-width: 600px; margin: 20px auto 0;">Experience the journey of African football talent through our lens</p>
-            </div>
-            
-            <!-- Instagram Embed Grid -->
-            <div class="instagram-grid">
-                <!-- Instagram Post 1 -->
-                <div class="instagram-embed-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DTDqPtpjFtf/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
+            <div class="process-container">
+                <!-- Step 1 -->
+                <div class="process-step-visual" id="process-step-1">
+                    <div class="process-image">
+                        <div class="process-number">1</div>
+                        <img src="https://cdn.ghanafa.org/2025/04/WhatsApp-Image-2025-04-29-at-2.58.13-AM.jpeg" alt="Talent Identification" loading="lazy">
+                    </div>
+                    <div class="process-content">
+                        <h3>Talent Identification & Evaluation</h3>
+                        <p>Comprehensive assessment of player potential, skills, and market value through our extensive scouting network across Africa and advanced evaluation protocols.</p>
+                    </div>
                 </div>
                 
-                <!-- Instagram Post 2 -->
-                <div class="instagram-embed-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DS5KlP8DJz6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
+                <!-- Step 2 -->
+                <div class="process-step-visual" id="process-step-2">
+                    <div class="process-image">
+                        <div class="process-number">2</div>
+                        <img src="https://cdn.ghanafa.org/2025/04/WhatsApp-Image-2025-04-29-at-2.58.11-AM-1.jpeg" alt="Strategic Career Planning" loading="lazy">
+                    </div>
+                    <div class="process-content">
+                        <h3>Strategic Career Planning</h3>
+                        <p>Development of personalized career roadmap with clear short and long-term objectives, performance milestones, and growth strategies tailored to individual potential.</p>
+                    </div>
                 </div>
                 
-                <!-- Instagram Post 3 -->
-                <div class="instagram-embed-wrapper">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DSrv6FGDO87/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Club Consult Africa (@clubconsultafrica)</a></p></div></blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
+                <!-- Step 3 -->
+                <div class="process-step-visual" id="process-step-3">
+                    <div class="process-image">
+                        <div class="process-number">3</div>
+                        <img src="https://cdn.ghanafa.org/2025/04/WhatsApp-Image-2025-04-29-at-2.58.16-AM-1.jpeg" alt="Contract Management" loading="lazy">
+                    </div>
+                    <div class="process-content">
+                        <h3>Contract & Negotiation Management</h3>
+                        <p>Expert negotiation of terms, conditions, and compensation packages to secure optimal agreements that protect and advance player interests throughout their career.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="process-step-visual" id="process-step-4">
+                    <div class="process-image">
+                        <div class="process-number">4</div>
+                        <img src="https://www.k18globalsports.com/wp-content/uploads/2023/03/Contract.jpg" alt="Ongoing Career Development" loading="lazy">
+                    </div>
+                    <div class="process-content">
+                        <h3>Ongoing Career Development</h3>
+                        <p>Continuous support, performance monitoring, and strategic adjustments to ensure career progression, adaptation to market changes, and long-term success.</p>
+                    </div>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="https://www.instagram.com/clubconsultafrica/" target="_blank" class="btn-instagram">
-                    <i class="fab fa-instagram"></i>
-                    Follow Us on Instagram
-                </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section visual-cta">
+        <div class="container">
+            <div class="cta-container">
+                <h2>Ready to Transform Your Football Career?</h2>
+                <p>Join Africa's premier football agency and experience professional representation that delivers measurable results, sustainable growth, and long-term success both on and off the pitch.</p>
+                <div class="cta-buttons">
+                    <a href="../index.html#talent-form" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Join Our Talent Pool
+                    </a>
+                    <a href="../index.html#contact" class="btn-secondary">
+                        <i class="fas fa-calendar-alt"></i>
+                        Schedule Consultation
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -2486,22 +1220,25 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <a href="/Club-Consult-Africa/"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
+                    <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
                     <p style="opacity: 0.8; margin-bottom: 20px;">
                         Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
                     </p>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank">
+                        <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank">
+                        <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank">
+                        <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.linkedin.com/" class="social-icon" target="_blank">
+                        <a href="https://www.linkedin.com/" class="social-icon" target="_blank" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCbFCo17_fMGdNh5AVGJZ6vw" class="social-icon" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
@@ -2509,40 +1246,37 @@
                 <div class="footer-column">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                        <li><a href="#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
-                        <li><a href="#blog"><i class="fas fa-chevron-right"></i> Blog</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="../about/"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="../players/"><i class="fas fa-chevron-right"></i> Our Players</a></li>
+                        <li><a href="../blog/"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="../highlights/"><i class="fas fa-chevron-right"></i> Highlights</a></li>
+                        <li><a href="../index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Our Services</h4>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Player Representation</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contract Negotiations</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Transfer Management</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Scouting Services</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Brand Management</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Career Development</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Professional Representation</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Contract Negotiations</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Transfer Management</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Scouting Services</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Brand Management</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Career Development</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Newsletter</h4>
                     <p style="opacity: 0.8; margin-bottom: 20px;">
-                        Subscribe to our newsletter for the latest updates, insights, and opportunities in African football.
+                        Subscribe for exclusive updates on player transfers, career opportunities, and industry insights.
                     </p>
-                    <form class="newsletter-form" id="newsletterForm" action="https://formspree.io/f/xkgvbonbI" method="POST">
-                        <input type="hidden" name="_subject" value="New Newsletter Subscription - Club Consult Africa">
+                    <form class="newsletter-form" id="newsletterForm">
                         <input type="email" class="newsletter-input" name="email" placeholder="Your email address" required>
-                        <button type="submit" class="newsletter-btn" id="submitNewsletter">Subscribe</button>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
                     </form>
-                    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">
-                        We respect your privacy. Unsubscribe at any time.
-                    </p>
                 </div>
             </div>
             
@@ -2552,461 +1286,332 @@
         </div>
     </footer>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-
+    <!-- Advanced JavaScript Animations -->
     <script>
-        $(document).ready(function() {
-            // Initialize GSAP ScrollTrigger
+        document.addEventListener('DOMContentLoaded', function() {
+            // Register GSAP Plugins
             gsap.registerPlugin(ScrollTrigger);
             
-            // Mobile Menu Toggle
-            $('#mobileMenuBtn').click(function() {
-                $('#mainNav').toggleClass('active');
-                $(this).html($('#mainNav').hasClass('active') ? 
-                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>');
-            });
+            // Mobile Menu Functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
             
-            // Navbar scroll effect and progress bar
-            $(window).scroll(function() {
-                if ($(window).scrollTop() > 50) {
-                    $('.navbar').addClass('scrolled');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    this.innerHTML = mainNav.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
                 } else {
-                    $('.navbar').removeClass('scrolled');
-                }
-                
-                // Update scroll progress
-                const winScroll = $(window).scrollTop();
-                const height = $(document).height() - $(window).height();
-                const scrolled = (winScroll / height) * 100;
-                $('.scroll-progress').css('width', scrolled + '%');
-            });
-            
-            // Smooth scrolling for navigation links
-            $('a[href^="#"]').on('click', function(e) {
-                e.preventDefault();
-                const targetId = $(this).attr('href');
-                if (targetId === '#') return;
-                
-                const targetElement = $(targetId);
-                if (targetElement.length) {
-                    const navbarHeight = $('.navbar').outerHeight();
-                    $('html, body').animate({
-                        scrollTop: targetElement.offset().top - navbarHeight
-                    }, 800);
-                    
-                    // Update active nav link
-                    $('.nav-links a').removeClass('active');
-                    $(this).addClass('active');
-                    
-                    // Close mobile menu if open
-                    if ($('#mainNav').hasClass('active')) {
-                        $('#mainNav').removeClass('active');
-                        $('#mobileMenuBtn').html('<i class="fas fa-bars"></i>');
-                    }
+                    navbar.classList.remove('scrolled');
                 }
             });
             
-            // Hero scroll indicator functionality
-            $('#scrollIndicator').on('click', function() {
-                const aboutSection = $('#about');
-                const navbarHeight = $('.navbar').outerHeight();
-                
-                $('html, body').animate({
-                    scrollTop: aboutSection.offset().top - navbarHeight
-                }, 1000);
-            });
-            
-            // Initialize Swiper Testimonials
-            const swiper = new Swiper('.testimonial-slider', {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20
-                    },
-                    768: {
-                        slidesPerView: 1,
-                        spaceBetween: 30
-                    },
-                    1024: {
-                        slidesPerView: 1,
-                        spaceBetween: 40
-                    }
-                }
-            });
-            
-            // Video autoplay handling
-            const video = document.getElementById('heroVideo');
-            if (video) {
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log('Autoplay prevented:', error);
+            // Hero Scroll Indicator
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener('click', function() {
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: '#visual-services',
+                        ease: "power2.inOut"
                     });
-                }
+                });
             }
             
-            // Add hover effect to service cards
-            $('.service-card').hover(
-                function() {
-                    $(this).css('transform', 'translateY(-10px)');
-                    $(this).css('box-shadow', '0 20px 40px rgba(0, 0, 0, 0.1)');
-                    $(this).find('.service-icon').css('transform', 'scale(1.1) rotate(5deg)');
+            // ===== ADVANCED ANIMATIONS =====
+            
+            // 1. Parallax Hero Background
+            gsap.to('.hero-background img', {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: '.visual-hero',
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+            
+            // 2. 3D Card Entrance Animations
+            const serviceCards = gsap.utils.toArray('.visual-service-card');
+            serviceCards.forEach((card, index) => {
+                gsap.fromTo(card, 
+                    {
+                        opacity: 0,
+                        y: 150,
+                        rotationX: 15,
+                        rotationY: index % 2 === 0 ? -10 : 10,
+                        scale: 0.9
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotationX: 0,
+                        rotationY: 0,
+                        scale: 1,
+                        duration: 1.5,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                            end: "top 50%",
+                            toggleActions: "play none none reverse",
+                            once: true
+                        },
+                        delay: index * 0.2
+                    }
+                );
+            });
+            
+            // 3. Staggered Stat Cards with Counters
+            const statCards = gsap.utils.toArray('.stat-card');
+            const counters = document.querySelectorAll('.stat-number');
+            
+            statCards.forEach((card, index) => {
+                gsap.fromTo(card,
+                    {
+                        opacity: 0,
+                        y: 80,
+                        scale: 0.8,
+                        rotationY: 30
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        rotationY: 0,
+                        duration: 1,
+                        ease: "back.out(1.7)",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 90%",
+                            toggleActions: "play none none reverse",
+                            once: true
+                        },
+                        delay: index * 0.15,
+                        onComplete: function() {
+                            if (counters[index]) {
+                                animateCounter(counters[index], parseInt(counters[index].textContent.replace('+', '')));
+                            }
+                        }
+                    }
+                );
+            });
+            
+            // 4. Process Steps Staggered Entrance
+            const processSteps = gsap.utils.toArray('.process-step-visual');
+            processSteps.forEach((step, index) => {
+                const direction = index % 2 === 0 ? -150 : 150;
+                gsap.fromTo(step,
+                    {
+                        opacity: 0,
+                        x: direction,
+                        rotationY: direction > 0 ? 15 : -15
+                    },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        rotationY: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: step,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse",
+                            once: true
+                        },
+                        delay: index * 0.3
+                    }
+                );
+            });
+            
+            // 5. Counter Animation Function
+            function animateCounter(element, targetValue) {
+                const obj = { value: 0 };
+                gsap.to(obj, {
+                    value: targetValue,
+                    duration: 2.5,
+                    ease: "power2.out",
+                    onUpdate: function() {
+                        if (element.id === 'counter-1') {
+                            element.textContent = Math.floor(obj.value);
+                        } else {
+                            element.textContent = Math.floor(obj.value) + '+';
+                        }
+                    }
+                });
+            }
+            
+            // 6. Image Hover Effects
+            const serviceImages = document.querySelectorAll('.service-image');
+            serviceImages.forEach(image => {
+                const card = image.closest('.visual-service-card');
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(image, {
+                        scale: 1.1,
+                        duration: 1.2,
+                        ease: "power2.out"
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(image, {
+                        scale: 1,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    });
+                });
+            });
+            
+            // 7. CTA Section Entrance
+            gsap.from('.visual-cta h2', {
+                scrollTrigger: {
+                    trigger: '.visual-cta',
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
                 },
-                function() {
-                    $(this).css('transform', 'translateY(0)');
-                    $(this).css('box-shadow', '0 5px 15px rgba(0, 0, 0, 0.05)');
-                    $(this).find('.service-icon').css('transform', 'scale(1) rotate(0deg)');
-                }
-            );
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
             
-            // Animate hero elements on load
-            gsap.from('.hero-tagline', {duration: 1, y: 30, opacity: 0, delay: 0.2});
-            gsap.from('.hero-title', {duration: 1.2, y: 50, opacity: 0, delay: 0.4});
-            gsap.from('.hero-subtitle', {duration: 1.2, y: 50, opacity: 0, delay: 0.6});
-            gsap.from('.hero-buttons', {duration: 1, y: 50, opacity: 0, delay: 0.8});
+            gsap.from('.visual-cta p', {
+                scrollTrigger: {
+                    trigger: '.visual-cta',
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                delay: 0.2,
+                ease: "power3.out"
+            });
             
-            // Add scroll animations with GSAP
-            gsap.utils.toArray('.section-title, .service-card, .stat-item, .blog-card').forEach(element => {
-                gsap.from(element, {
-                    scrollTrigger: {
-                        trigger: element,
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse'
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power2.out'
+            gsap.from('.cta-buttons', {
+                scrollTrigger: {
+                    trigger: '.visual-cta',
+                    start: "top 70%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                delay: 0.4,
+                ease: "power3.out"
+            });
+            
+            // 8. Smooth Scrolling for Navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                            gsap.to(window, {
+                                duration: 1.2,
+                                scrollTo: {
+                                    y: targetElement,
+                                    offsetY: navbarHeight + 20
+                                },
+                                ease: "power2.inOut"
+                            });
+                            
+                            // Update active nav link
+                            document.querySelectorAll('.nav-links a').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                            
+                            // Close mobile menu if open
+                            if (mainNav.classList.contains('active')) {
+                                mainNav.classList.remove('active');
+                                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                            }
+                        }
+                    }
                 });
             });
             
-            // YouTube Highlights Functionality
-            initYouTubeHighlights();
+            // 9. Newsletter Form Animation
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[name="email"]').value;
+                    if (email) {
+                        const btn = this.querySelector('.newsletter-btn');
+                        const originalText = btn.textContent;
+                        
+                        // Animate success state
+                        gsap.to(btn, {
+                            backgroundColor: '#28a745',
+                            color: 'white',
+                            duration: 0.3,
+                            onComplete: function() {
+                                btn.textContent = 'Subscribed!';
+                                setTimeout(() => {
+                                    btn.textContent = originalText;
+                                    gsap.to(btn, {
+                                        backgroundColor: '',
+                                        color: '',
+                                        duration: 0.3
+                                    });
+                                }, 2000);
+                            }
+                        });
+                        
+                        this.reset();
+                    }
+                });
+            }
             
-            // Form Validation and Submission
-            initFormHandlers();
+            // 10. Initial Page Load Animations
+            const heroElements = gsap.utils.toArray('.hero-tagline, .hero-title, .hero-subtitle');
+            gsap.from(heroElements, {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.3,
+                ease: "power3.out",
+                delay: 0.5
+            });
             
-            // Notification System
-            initNotificationSystem();
+            // 11. Scroll Progress Indicator
+            const scrollProgress = document.createElement('div');
+            scrollProgress.className = 'scroll-progress';
+            scrollProgress.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+                z-index: 9999;
+                transition: width 0.1s ease;
+            `;
+            document.body.appendChild(scrollProgress);
+            
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
         });
-        
-        // YouTube Highlights Functionality
-        function initYouTubeHighlights() {
-            const youtubeHighlightItems = document.querySelectorAll('.youtube-highlight-item');
-            const youtubeFullscreenModal = document.getElementById('youtubeFullscreenModal');
-            const youtubeCloseFullscreen = document.getElementById('youtubeCloseFullscreen');
-            const youtubeIframe = youtubeFullscreenModal.querySelector('.youtube-fullscreen-iframe');
-            
-            // Preload YouTube thumbnails
-            youtubeHighlightItems.forEach(item => {
-                const thumbnail = item.querySelector('.youtube-thumbnail');
-                const youtubeId = item.getAttribute('data-youtube-id');
-                
-                // Use higher quality thumbnail
-                thumbnail.src = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
-                
-                // Fallback to hqdefault if maxresdefault doesn't exist
-                thumbnail.onerror = function() {
-                    this.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-                };
-                
-                // Add hover effect
-                item.addEventListener('mouseenter', function() {
-                    this.querySelector('.youtube-play-button').style.transform = 'translate(-50%, -50%) scale(1.1)';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.querySelector('.youtube-play-button').style.transform = 'translate(-50%, -50%) scale(1)';
-                });
-            });
-            
-            // Open YouTube video in fullscreen modal
-            function openYouTubeFullscreen(item) {
-                const youtubeId = item.getAttribute('data-youtube-id');
-                
-                // Construct YouTube embed URL with autoplay
-                const embedUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
-                
-                // Set iframe source
-                youtubeIframe.src = embedUrl;
-                
-                // Show modal
-                youtubeFullscreenModal.classList.add('active');
-            }
-            
-            // Add click event to entire highlight item
-            youtubeHighlightItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    openYouTubeFullscreen(this);
-                });
-            });
-            
-            // Close fullscreen modal
-            youtubeCloseFullscreen.addEventListener('click', function() {
-                youtubeFullscreenModal.classList.remove('active');
-                youtubeIframe.src = '';
-            });
-            
-            // Close modal when clicking outside
-            youtubeFullscreenModal.addEventListener('click', function(e) {
-                if (e.target === youtubeFullscreenModal) {
-                    youtubeFullscreenModal.classList.remove('active');
-                    youtubeIframe.src = '';
-                }
-            });
-            
-            // Close with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && youtubeFullscreenModal.classList.contains('active')) {
-                    youtubeFullscreenModal.classList.remove('active');
-                    youtubeIframe.src = '';
-                }
-            });
-
-            // Instagram Embed Loading
-            function loadInstagramEmbeds() {
-                // Check if Instagram embed script is already loaded
-                if (!document.querySelector('script[src="//www.instagram.com/embed.js"]')) {
-                    const script = document.createElement('script');
-                    script.src = '//www.instagram.com/embed.js';
-                    script.async = true;
-                    document.body.appendChild(script);
-                    
-                    // Instagram embed callback
-                    window.instgrm = window.instgrm || {};
-                    window.instgrm.Embeds = window.instgrm.Embeds || {};
-                    window.instgrm.Embeds.process = function() {
-                        // Instagram embeds processed
-                    };
-                }
-            }
-
-            // Load Instagram embeds after a delay to ensure DOM is ready
-            setTimeout(loadInstagramEmbeds, 1500);
-
-            // Animate Instagram embeds on scroll
-            gsap.utils.toArray('.instagram-embed-wrapper').forEach(element => {
-                gsap.from(element, {
-                    scrollTrigger: {
-                        trigger: element,
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse'
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                });
-            });
-        }
-        
-        // Form Validation and Submission
-        function initFormHandlers() {
-            // Talent Discovery Form
-            $('#talentDiscoveryForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateForm($(this))) {
-                    showNotification('success', 'Application Submitted!', 'Thank you for your talent application! Our scouting team will review your profile and contact you within 5-7 business days.');
-                    submitFormViaAJAX($(this));
-                }
-            });
-            
-            // Partnership Form
-            $('#partnershipForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateForm($(this))) {
-                    showNotification('success', 'Partnership Inquiry Sent!', 'Thank you for your partnership inquiry! Our partnership team will contact you within 3 business days to discuss opportunities.');
-                    submitFormViaAJAX($(this));
-                }
-            });
-            
-            // Contact Form
-            $('#contactForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateForm($(this))) {
-                    showNotification('success', 'Message Sent!', 'Thank you for contacting Club Consult Africa! We will respond to your inquiry within 24 hours.');
-                    submitFormViaAJAX($(this));
-                }
-            });
-            
-            // Newsletter Form
-            $('#newsletterForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                const email = $(this).find('input[type="email"]').val();
-                if (isValidEmail(email)) {
-                    showNotification('success', 'Subscribed!', `Thank you for subscribing to our newsletter! You'll receive our latest updates and insights in your inbox.`);
-                    submitFormViaAJAX($(this));
-                } else {
-                    showNotification('error', 'Invalid Email', 'Please enter a valid email address.');
-                }
-            });
-            
-            // Form validation helper
-            function validateForm(form) {
-                let isValid = true;
-                
-                // Clear previous errors
-                form.find('.error-message').hide();
-                form.find('.form-control').removeClass('error');
-                
-                // Validate required fields
-                form.find('input[required], select[required], textarea[required]').each(function() {
-                    if (!$(this).val()) {
-                        isValid = false;
-                        $(this).addClass('error');
-                    }
-                });
-                
-                // Validate email fields
-                form.find('input[type="email"]').each(function() {
-                    if ($(this).val() && !isValidEmail($(this).val())) {
-                        isValid = false;
-                        $(this).addClass('error');
-                        showNotification('error', 'Invalid Email', 'Please enter a valid email address.');
-                    }
-                });
-                
-                // Validate checkboxes
-                form.find('input[type="checkbox"][required]').each(function() {
-                    if (!$(this).is(':checked')) {
-                        isValid = false;
-                        showNotification('error', 'Agreement Required', 'Please agree to the terms and conditions.');
-                    }
-                });
-                
-                return isValid;
-            }
-            
-            // Form submission via AJAX
-            function submitFormViaAJAX(form) {
-                const formData = new FormData(form[0]);
-                const submitButton = form.find('button[type="submit"]');
-                const originalText = submitButton.text();
-                
-                // Show loading state
-                submitButton.prop('disabled', true).text('Sending...');
-                
-                fetch(form.attr('action'), {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Reset form on success
-                        form[0].reset();
-                    } else {
-                        showNotification('error', 'Submission Failed', 'There was an error submitting your form. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    showNotification('error', 'Network Error', 'Unable to submit form. Please check your connection and try again.');
-                })
-                .finally(() => {
-                    // Restore button state
-                    submitButton.prop('disabled', false).text(originalText);
-                });
-            }
-            
-            // Email validation helper
-            function isValidEmail(email) {
-                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(String(email).toLowerCase());
-            }
-        }
-        
-        // Notification System
-        function initNotificationSystem() {
-            const notificationPopup = $('#notificationPopup');
-            const notificationClose = $('#notificationClose');
-            let notificationTimeout;
-            
-            // Close notification
-            notificationClose.on('click', function() {
-                hideNotification();
-            });
-            
-            // Auto-close notification after 5 seconds
-            notificationPopup.on('animationend', function() {
-                if (notificationPopup.hasClass('show')) {
-                    notificationTimeout = setTimeout(hideNotification, 5000);
-                }
-            });
-            
-            // Function to show notification
-            window.showNotification = function(type, title, message) {
-                // Clear any existing timeout
-                clearTimeout(notificationTimeout);
-                
-                // Reset notification progress bar
-                notificationPopup.find('.notification-progress-bar').css('animation', 'none');
-                void notificationPopup.find('.notification-progress-bar')[0].offsetWidth; // Trigger reflow
-                notificationPopup.find('.notification-progress-bar').css('animation', 'progressBar 5s linear forwards');
-                
-                // Set notification type and content
-                notificationPopup.removeClass('success error info').addClass(type);
-                notificationPopup.find('#notificationTitle').text(title);
-                notificationPopup.find('#notificationMessage').text(message);
-                
-                // Set appropriate icon
-                const icon = notificationPopup.find('#notificationIcon i');
-                icon.removeClass().addClass('fas');
-                
-                switch(type) {
-                    case 'success':
-                        icon.addClass('fa-check-circle');
-                        break;
-                    case 'error':
-                        icon.addClass('fa-exclamation-circle');
-                        break;
-                    case 'info':
-                        icon.addClass('fa-info-circle');
-                        break;
-                }
-                
-                // Show notification with animation
-                notificationPopup.addClass('show');
-                
-                // Auto-hide after 5 seconds
-                notificationTimeout = setTimeout(hideNotification, 5000);
-            };
-            
-            // Function to hide notification
-            function hideNotification() {
-                notificationPopup.removeClass('show');
-                clearTimeout(notificationTimeout);
-            }
-            
-            // Close notification on Escape key
-            $(document).on('keydown', function(e) {
-                if (e.key === 'Escape' && notificationPopup.hasClass('show')) {
-                    hideNotification();
-                }
-            });
-        }
     </script>
 </body>
 </html>
