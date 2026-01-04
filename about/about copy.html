@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Club Consult Africa | Premier Football Agency</title>
+    
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo3.png">
+    
+    <style>
+        /* ===== RESET AND GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #111111;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+        
+        :root {
+            --primary-color: #0A1E3C;
+            --accent-color: #E63946;
+            --secondary-color: #FDB827;
+            --light-bg: #F8F9FA;
+            --light-text: #FFFFFF;
+            --section-spacing: 100px;
+            --navbar-height: 120px;
+            --navbar-height-scrolled: 80px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--navbar-height);
+            background-color: rgba(10, 30, 60, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.scrolled {
+            height: var(--navbar-height-scrolled);
+            background-color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .logo img {
+            height: 100px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled .logo img {
+            height: 60px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* ===== ABOUT HERO SECTION ===== */
+        .about-hero {
+            min-height: 70vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            overflow: hidden;
+            padding-top: var(--navbar-height);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #152a50 100%);
+        }
+        
+        .about-hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .about-hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.15;
+        }
+
+        .about-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 30, 60, 0.9) 0%, rgba(21, 42, 80, 0.8) 100%);
+            z-index: 2;
+        }
+        
+        .about-hero-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .about-hero-tagline {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.3s;
+        }
+        
+        .about-hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.5s;
+        }
+        
+        .about-hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.7s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== FOUNDING VISION SECTION ===== */
+        .founding-vision {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .founding-vision-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .founding-year {
+            font-size: 8rem;
+            font-weight: 800;
+            color: rgba(10, 30, 60, 0.05);
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .founding-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 0;
+            transform: none;
+        }
+        
+        .founding-content p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        
+        .founding-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .founding-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        .founding-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* ===== BELIEFS SECTION ===== */
+        .beliefs-section {
+            background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
+            position: relative;
+        }
+        
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .belief-card {
+            background: white;
+            border-radius: 15px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .belief-card:nth-child(1) {
+            border-top-color: var(--secondary-color);
+        }
+        
+        .belief-card:nth-child(2) {
+            border-top-color: var(--accent-color);
+        }
+        
+        .belief-card:nth-child(3) {
+            border-top-color: var(--primary-color);
+        }
+        
+        .belief-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .belief-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .belief-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .belief-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-color), #f0c01a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--primary-color);
+            font-size: 2rem;
+            transition: all 0.4s ease;
+        }
+        
+        .belief-card:hover .belief-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .belief-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        /* ===== CEO SPOTLIGHT SECTION ===== */
+        .ceo-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #152a50 100%);
+            color: var(--light-text);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ceo-section .section-title h2 {
+            color: var(--light-text);
+        }
+        
+        .ceo-section .section-title h2::after {
+            background: var(--secondary-color);
+        }
+        
+        .ceo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .ceo-image-container {
+            position: relative;
+        }
+        
+        .ceo-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ceo-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .ceo-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .ceo-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 3;
+        }
+        
+        .ceo-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .ceo-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            color: var(--light-text);
+        }
+        
+        .ceo-subtitle {
+            display: inline-block;
+            background: rgba(253, 184, 39, 0.2);
+            color: var(--secondary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid rgba(253, 184, 39, 0.3);
+        }
+        
+        .ceo-bio {
+            margin-bottom: 30px;
+        }
+        
+        .ceo-bio p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+        
+        .ceo-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .ceo-stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .ceo-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        
+        .ceo-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* ===== SIMPLIFIED EVOLUTION TIMELINE ===== */
+        .timeline-section {
+            background-color: white;
+            position: relative;
+            padding: 100px 0;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-path {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                var(--secondary-color) 0%, 
+                var(--accent-color) 30%,
+                var(--primary-color) 70%,
+                #0A1E3C 100%);
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .timeline {
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 80px;
+            position: relative;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--light-bg);
+            position: relative;
+        }
+
+        .timeline-year {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.3rem;
+            z-index: 3;
+            box-shadow: 0 10px 30px rgba(10, 30, 60, 0.3);
+            border: 4px solid white;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -35px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -35px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 20px;
+            height: 2px;
+            background: var(--secondary-color);
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            width: 20px;
+            height: 2px;
+            background: var(--secondary-color);
+            transform: translateY(-50%);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* ===== GLOBAL PRESENCE SECTION WITH ACCURATE MARKERS ===== */
+        .presence-section {
+            background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
+            color: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .world-map-container {
+            position: relative;
+            max-width: 900px;
+            margin: 60px auto 0;
+            height: 450px;
+        }
+        
+        .world-map {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.4;
+        }
+        
+        .presence-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .presence-marker {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+            animation: markerPulse 2s infinite;
+        }
+
+        .presence-marker:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            z-index: 10;
+        }
+
+        .presence-marker::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: rgba(230, 57, 70, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Accurate marker positions for Robinson projection map */
+        .marker-africa {
+            top: 65%;   /* Africa is in the lower half */
+            left: 52%;  /* Centered horizontally */
+        }
+        
+        .marker-europe {
+            top: 38%;   /* Europe is upper middle */
+            left: 49%;  /* Slightly left of center */
+        }
+        
+        .marker-america {
+            top: 45%;   /* North America is middle */
+            left: 27%;  /* Left side */
+        }
+
+        .marker-label {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .presence-marker:hover .marker-label {
+            opacity: 1;
+        }
+
+        .marker-label::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        @keyframes markerPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+            }
+        }
+        
+        .presence-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .presence-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .presence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .presence-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* ===== CALL TO ACTION SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #f0c01a 100%);
+            color: var(--primary-color);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a1629 100%);
+            color: var(--light-text);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .newsletter-form {
+            margin-top: 15px;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .footer-social {
+            margin: 30px 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 1200px) {
+            .about-hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .founding-vision-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .founding-year {
+                font-size: 6rem;
+                left: 5%;
+            }
+            
+            .ceo-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .ceo-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline-content {
+                width: 48%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .timeline-item {
+                justify-content: center !important;
+                margin-bottom: 100px;
+            }
+            
+            .timeline-content {
+                width: 80%;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
+            .timeline-year {
+                top: -35px;
+                left: 50% !important;
+                transform: translateX(-50%);
+                right: auto !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                top: -20px;
+                left: 50%;
+                width: 2px;
+                height: 20px;
+                transform: translateX(-50%);
+                right: auto !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --navbar-height: 100px;
+                --navbar-height-scrolled: 80px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-top: 100px;
+                padding-left: 40px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 25px 0;
+            }
+            
+            .about-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .about-hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .beliefs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ceo-content h3 {
+                font-size: 2rem;
+            }
+            
+            .ceo-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-content {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .world-map-container {
+                height: 350px;
+            }
+            
+            .marker-label {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+                top: -35px;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .about-hero-title {
+                font-size: 2rem;
+            }
+            
+            .founding-year {
+                font-size: 4rem;
+                display: none;
+            }
+            
+            .belief-card {
+                padding: 30px 20px;
+            }
+            
+            .ceo-content h3 {
+                font-size: 1.8rem;
+            }
+            
+            .timeline-year {
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .world-map-container {
+                height: 250px;
+            }
+            
+            .presence-marker {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .marker-label {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+                top: -30px;
+            }
+            
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="mainNav">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#services"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="index.html#clients"><i class="fas fa-users"></i> Testimonials</a></li>
+                <li><a href="blog/blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="index.html#highlights"><i class="fas fa-video"></i> Highlights</a></li>
+                <li><a href="index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
+                <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-video-container">
+            <video class="about-hero-video" autoplay loop muted playsinline preload="auto">
+                <source src="assets/vid/home.mp4" type="video/mp4">
+                <source src="assets/vid/home.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            <div class="about-hero-overlay"></div>
+        </div>
+        
+        <div class="container">
+            <div class="about-hero-content">
+                <span class="about-hero-tagline">Our Journey Since 2012</span>
+                <h1 class="about-hero-title">Redefining Athlete Representation in Africa</h1>
+                <p class="about-hero-subtitle">We are more than just a sports management agency. We are strategic partners dedicated to unlocking the full potential of African athletes through innovative management, personalized representation, and global opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founding Vision Section -->
+    <section class="section founding-vision">
+        <div class="container">
+            <div class="founding-year">2012</div>
+            <div class="founding-vision-container">
+                <div class="founding-content">
+                    <div class="section-title">
+                        <h2>Our Founding Vision</h2>
+                    </div>
+                    <p><strong>Club Consult Africa was founded in 2012 on a revolutionary belief:</strong> that more is required of an athlete representative than simply providing assistance in negotiating contracts. We recognized that African talent deserved more comprehensive support to truly excel on the global stage.</p>
+                    
+                    <p>Our founders—former professional footballers, experienced attorneys, and marketing experts—came together with a shared vision: to create an agency that would challenge conventional approaches to sports management and provide holistic career development for African athletes.</p>
+                    
+                    <p>From our humble beginnings in Accra, Ghana, we have grown into a pan-African powerhouse with presence across three continents. Yet, our core philosophy remains unchanged: to deliver exceptional value through deep, meaningful relationships with our clients.</p>
+                    
+                    <div style="background: var(--light-bg); padding: 25px; border-left: 4px solid var(--secondary-color); margin-top: 30px; border-radius: 0 8px 8px 0;">
+                        <p style="font-style: italic; margin: 0;">"We continue to provide unique and innovative management to sports professionals by fostering relationships with our clients and challenging ourselves to continually bring innovative ways of thinking to the most complex challenges we may face together."</p>
+                    </div>
+                </div>
+                
+                <div class="founding-image">
+                    <img src="https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Club Consult Africa Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Beliefs Section -->
+    <section class="section beliefs-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Core Beliefs</h2>
+                <p>The principles that guide every decision we make for our clients</p>
+            </div>
+            
+            <div class="beliefs-grid">
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Transcending Athletic Excellence</h3>
+                    <p>We believe there is a great opportunity for athletes to transcend their popularity, visibility, and resources into areas far greater than athletic endeavors. Our role is to help athletes build legacies that extend beyond the field.</p>
+                </div>
+                
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Maximizing Unique Potential</h3>
+                    <p>We challenge each client to recognize their unique position and maximize long-term possibilities. Every athlete has distinct strengths, and our strategies are tailored to amplify what makes them exceptional.</p>
+                </div>
+                
+                <div class="belief-card">
+                    <div class="belief-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Relationships First</h3>
+                    <p>The key to long-term successful career management begins with establishing close, personal relationships between our staff and our clients and their families. We become part of your team, not just your representatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Spotlight Section -->
+    <section class="section ceo-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Leadership</h2>
+                <p>Meet the visionary behind Club Consult Africa</p>
+            </div>
+            
+            <div class="ceo-container">
+                <div class="ceo-image-container">
+                    <div class="ceo-badge">CEO & Founder</div>
+                    <div class="ceo-image">
+                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Yussif Alhassan Chibsah">
+                    </div>
+                </div>
+                
+                <div class="ceo-content">
+                    <h3>Yussif Alhassan Chibsah</h3>
+                    <p class="ceo-title">Chief Executive Officer & Founder</p>
+                    <span class="ceo-subtitle">Former Professional Ghanaian & International Footballer</span>
+                    
+                    <div class="ceo-bio">
+                        <p>Yussif Alhassan Chibsah is a distinguished former professional footballer who represented Ghana at the highest international level. With over a decade of experience playing professionally in Ghana and internationally, he brings an insider's understanding of the football industry that few can match.</p>
+                        
+                        <p>After hanging up his boots, Yussif channeled his passion for the game into creating Club Consult Africa in 2012. His vision was simple yet revolutionary: to create an agency that understood athletes from the inside out, combining professional expertise with genuine empathy for the athlete's journey.</p>
+                        
+                        <p>Under his leadership, Club Consult Africa has grown from a local startup to an internationally recognized agency with presence across three continents. Yussif's hands-on approach and deep industry connections ensure that every client receives personalized attention and access to opportunities that align with their unique career aspirations.</p>
+                    </div>
+                    
+                    <div class="ceo-stats">
+                        <div class="ceo-stat">
+                            <div class="ceo-stat-number">15+</div>
+                            <div class="ceo-stat-label">Years in Football</div>
+                        </div>
+                        <div class="ceo-stat">
+                            <div class="ceo-stat-number">50+</div>
+                            <div class="ceo-stat-label">Clients Represented</div>
+                        </div>
+                        <div class="ceo-stat">
+                            <div class="ceo-stat-number">100+</div>
+                            <div class="ceo-stat-label">Successful Transfers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified Timeline Section -->
+    <section class="section timeline-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Evolution Timeline</h2>
+                <p>Key milestones in our journey of excellence and innovation</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-path"></div>
+                
+                <div class="timeline">
+                    <!-- Milestone 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>The Foundation</h3>
+                            <p>Club Consult Africa was founded in Accra, Ghana, with a vision to revolutionize athlete representation. Our first office opened with a dedicated team of three professionals committed to changing the game.</p>
+                        </div>
+                        <div class="timeline-year">2012</div>
+                    </div>
+                    
+                    <!-- Milestone 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>First Major Breakthrough</h3>
+                            <p>We facilitated our first international transfer, moving a promising Ghanaian talent to a European club. This milestone validated our approach and expanded our network beyond Africa's borders.</p>
+                        </div>
+                        <div class="timeline-year">2014</div>
+                    </div>
+                    
+                    <!-- Milestone 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>European Expansion</h3>
+                            <p>Opened our first European office in Lisbon, Portugal, establishing a physical presence to better serve our growing roster of clients competing in top European leagues.</p>
+                        </div>
+                        <div class="timeline-year">2017</div>
+                    </div>
+                    
+                    <!-- Milestone 4 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Strategic Global Partnerships</h3>
+                            <p>Forged key partnerships with MLS clubs and established connections with major sports networks and brands in North America, expanding our reach across the Atlantic.</p>
+                        </div>
+                        <div class="timeline-year">2020</div>
+                    </div>
+                    
+                    <!-- Milestone 5 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Industry Recognition</h3>
+                            <p>Reached the significant milestone of representing over 50 professional footballers across Africa, Europe, and North America, solidifying our position as a leading agency.</p>
+                        </div>
+                        <div class="timeline-year">2023</div>
+                    </div>
+                    
+                    <!-- Milestone 6 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Elite Scouting Tournament</h3>
+                            <p>Announced our inaugural Elite Scouting Tournament, bringing together over 120 young African talents with global scouts and FIFA officials to showcase the future of African football.</p>
+                        </div>
+                        <div class="timeline-year">2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Presence Section with Accurate Markers -->
+    <section class="section presence-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Global Presence</h2>
+                <p>Strategically positioned to serve African talent worldwide</p>
+            </div>
+            
+            <div class="world-map-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1200px-Equirectangular_projection_SW.jpg" alt="World Map" class="world-map">
+                
+                <div class="presence-markers">
+                    <div class="presence-marker marker-africa">
+                        <div class="marker-label">Africa Headquarters</div>
+                    </div>
+                    
+                    <div class="presence-marker marker-europe">
+                        <div class="marker-label">European Operations</div>
+                    </div>
+                    
+                    <div class="presence-marker marker-america">
+                        <div class="marker-label">North American Network</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="presence-info">
+                <div class="presence-card">
+                    <h3>Africa Headquarters</h3>
+                    <p>Accra, Ghana serves as our primary base, where we maintain deep connections with local academies, national federations, and grassroots football programs across the continent.</p>
+                </div>
+                
+                <div class="presence-card">
+                    <h3>European Operations</h3>
+                    <p>With offices in Lisbon and strategic partnerships across Europe, we provide on-the-ground support for our clients in top European leagues.</p>
+                </div>
+                
+                <div class="presence-card">
+                    <h3>North American Network</h3>
+                    <p>Our North American connections open doors to MLS opportunities, commercial partnerships, and educational pathways for athletes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Elevate Your Career?</h2>
+                <p>Join the growing number of professional athletes who trust Club Consult Africa with their careers. Experience the difference of having a strategic partner dedicated to your long-term success.</p>
+                <a href="index.html#contact" class="btn-primary">Start Your Journey Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="index.html"><img src="assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px; filter: brightness(0) invert(1);"></a>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/" class="social-icon" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCbFCo17_fMGdNh5AVGJZ6vw" class="social-icon" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="index.html#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="blog/blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Accra, Ghana</a></li>
+                        <li><a href="tel:+233247090765"><i class="fas fa-phone"></i> +233 24 709 0765</a></li>
+                        <li><a href="mailto:info@clubconsultafrica.org"><i class="fas fa-envelope"></i> info@clubconsultafrica.org</a></li>
+                        <li><a href="#"><i class="fas fa-globe"></i> www.clubconsultafrica.org</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Subscribe for updates on African football talent and opportunities.
+                    </p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" name="email" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Club Consult Africa. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Mobile Menu Toggle
+            $('#mobileMenuBtn').click(function() {
+                $('#mainNav').toggleClass('active');
+                $(this).html($('#mainNav').hasClass('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>');
+            });
+            
+            // Navbar scroll effect
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.navbar').addClass('scrolled');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetElement = $(targetId);
+                if (targetElement.length) {
+                    const navbarHeight = $('.navbar').outerHeight();
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - navbarHeight
+                    }, 800);
+                    
+                    // Update active nav link
+                    $('.nav-links a').removeClass('active');
+                    $(this).addClass('active');
+                    
+                    // Close mobile menu if open
+                    if ($('#mainNav').hasClass('active')) {
+                        $('#mainNav').removeClass('active');
+                        $('#mobileMenuBtn').html('<i class="fas fa-bars"></i>');
+                    }
+                }
+            });
+            
+            // Animate timeline items on scroll
+            gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    delay: i * 0.2,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Animate belief cards on scroll
+            gsap.utils.toArray('.belief-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+            
+            // Animate CEO section
+            gsap.from('.ceo-image', {
+                scrollTrigger: {
+                    trigger: '.ceo-section',
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 1
+            });
+            
+            gsap.from('.ceo-content', {
+                scrollTrigger: {
+                    trigger: '.ceo-section',
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                delay: 0.2
+            });
+            
+            // Animate presence markers
+            gsap.utils.toArray('.presence-marker').forEach((marker, i) => {
+                gsap.from(marker, {
+                    scrollTrigger: {
+                        trigger: '.world-map-container',
+                        start: 'top 70%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    scale: 0,
+                    duration: 0.8,
+                    delay: i * 0.2,
+                    ease: 'back.out(1.7)'
+                });
+            });
+            
+            // Animate presence cards
+            gsap.utils.toArray('.presence-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: i * 0.2
+                });
+            });
+            
+            // Newsletter form submission
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[name="email"]').value;
+                    if (email) {
+                        alert('Thank you for subscribing to our newsletter!');
+                        this.reset();
+                    }
+                });
+            }
+
+            // Add hover effects for map markers
+            $('.presence-marker').hover(
+                function() {
+                    $(this).find('.marker-label').css('opacity', '1');
+                },
+                function() {
+                    $(this).find('.marker-label').css('opacity', '0');
+                }
+            );
+        });
+    </script>
+</body>
+</html>

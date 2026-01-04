@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles & News - Club Consult Africa</title>
+    
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo3.png">
+    
+    <style>
+        /* ===== RESET AND GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #111111;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+        
+        :root {
+            --primary-color: #0A1E3C;
+            --accent-color: #E63946;
+            --secondary-color: #FDB827;
+            --light-bg: #F8F9FA;
+            --dark-text: #111111;
+            --light-text: #FFFFFF;
+            --gray-bg: #F8F9FA;
+            --border-color: #DEE2E6;
+            --section-spacing: 100px;
+            --navbar-height: 120px;
+            --navbar-height-scrolled: 80px;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --info-color: #17a2b8;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--navbar-height);
+            background-color: rgba(10, 30, 60, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.scrolled {
+            height: var(--navbar-height-scrolled);
+            background-color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .logo img {
+            height: 100px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled .logo img {
+            height: 60px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* ===== HERO SECTION FOR ARTICLES ===== */
+        .hero-articles {
+            min-height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            overflow: hidden;
+            padding-top: var(--navbar-height);
+            background: linear-gradient(135deg, var(--primary-color), #152a50);
+            margin-bottom: 40px;
+        }
+        
+        .hero-articles-content {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-articles-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .hero-articles-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        /* ===== ARTICLES GRID ===== */
+        #articles-grid {
+            background-color: var(--light-bg);
+        }
+        
+        .articles-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .article-card:nth-child(1) { animation-delay: 0.1s; }
+        .article-card:nth-child(2) { animation-delay: 0.2s; }
+        .article-card:nth-child(3) { animation-delay: 0.3s; }
+        .article-card:nth-child(4) { animation-delay: 0.4s; }
+        .article-card:nth-child(5) { animation-delay: 0.5s; }
+        .article-card:nth-child(6) { animation-delay: 0.6s; }
+        .article-card:nth-child(7) { animation-delay: 0.7s; }
+        .article-card:nth-child(8) { animation-delay: 0.8s; }
+        
+        .article-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+        
+        .article-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .article-content {
+            padding: 30px;
+        }
+        
+        .article-date {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .article-date i {
+            color: var(--accent-color);
+        }
+        
+        .article-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+            transition: all 0.3s ease;
+        }
+        
+        .article-card:hover .article-title {
+            color: var(--accent-color);
+        }
+        
+        .article-summary {
+            color: #555;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .article-read-time {
+            color: #888;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .article-read-time i {
+            color: var(--accent-color);
+        }
+        
+        .article-read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .article-read-more:hover {
+            color: var(--primary-color);
+            gap: 12px;
+        }
+        
+        .article-read-more i {
+            transition: transform 0.3s ease;
+        }
+        
+        .article-read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* ===== INDIVIDUAL ARTICLE PAGE STYLES ===== */
+        #article-detail {
+            background-color: white;
+            min-height: 70vh;
+            padding-top: 150px;
+            padding-bottom: 80px;
+        }
+        
+        .article-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .article-detail-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .article-detail-back:hover {
+            color: var(--accent-color);
+            gap: 15px;
+        }
+        
+        .article-detail-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .article-detail-category {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .article-detail-title {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .article-detail-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: #888;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .article-detail-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .article-detail-image {
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .article-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .article-detail-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .article-detail-content {
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+        
+        .article-detail-content p {
+            margin-bottom: 25px;
+        }
+        
+        .article-detail-content h3 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .article-detail-content ul {
+            margin-left: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .article-detail-content li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .article-detail-content li:before {
+            content: '•';
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .article-detail-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .article-share {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .share-text {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .share-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--light-bg);
+            border-radius: 50%;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+        
+        .share-icons a:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* ===== ARTICLES FILTER ===== */
+        .articles-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--border-color);
+            color: #666;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .filter-btn.active {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a1629 100%);
+            color: var(--light-text);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .newsletter-form {
+            margin-top: 15px;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .footer-social {
+            margin: 30px 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 1200px) {
+            .hero-articles-title {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-articles-title {
+                font-size: 3rem;
+            }
+            
+            .hero-articles-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .article-detail-container {
+                padding: 40px;
+            }
+            
+            .article-detail-title {
+                font-size: 2.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --navbar-height: 100px;
+                --navbar-height-scrolled: 80px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-top: 100px;
+                padding-left: 40px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 0 0 25px 0;
+            }
+            
+            .hero-articles-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-articles {
+                min-height: 50vh;
+            }
+            
+            .articles-grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 30px;
+            }
+            
+            .article-detail-container {
+                padding: 30px 25px;
+            }
+            
+            .article-detail-title {
+                font-size: 2rem;
+            }
+            
+            .article-detail-image {
+                height: 300px;
+            }
+            
+            .article-detail-meta {
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .article-detail-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-articles-title {
+                font-size: 2rem;
+            }
+            
+            .hero-articles-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .articles-grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-detail-title {
+                font-size: 1.8rem;
+            }
+            
+            .article-detail-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="mainNav">
+                <li><a href="../index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../index.html#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="../index.html#services"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="../index.html#clients"><i class="fas fa-users"></i> Testimonials</a></li>
+                <li><a href="../blog/blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="../index.html#highlights"><i class="fas fa-video"></i> Highlights</a></li>
+                <li><a href="../index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
+                <li><a href="../index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section for Articles -->
+    <section class="hero-articles">
+        <div class="container">
+            <div class="hero-articles-content">
+                <h1 class="hero-articles-title">Latest News & Articles</h1>
+                <p class="hero-articles-subtitle">Stay updated with the latest developments in African football, youth tournaments, talent scouting initiatives, and industry insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Grid Section -->
+    <section id="articles-grid" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Articles</h2>
+                <p>Explore our collection of insights, news, and analysis from the world of football and sports management.</p>
+            </div>
+            
+            <!-- Articles Filter -->
+            <div class="articles-filter">
+                <button class="filter-btn active" data-filter="all">All Articles</button>
+                <button class="filter-btn" data-filter="tournament">Tournaments</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+                <button class="filter-btn" data-filter="scouting">Scouting</button>
+                <button class="filter-btn" data-filter="business">Business</button>
+            </div>
+            
+            <!-- Articles Grid -->
+            <div class="articles-grid-container">
+                <!-- Article 1 -->
+                <div class="article-card" data-category="tournament" data-id="1">
+                    <div class="article-image">
+                        <img src="../assets/img/press/cca_es.jpeg" alt="CCA Elite Scouting Tournament">
+                        <div class="article-category">Tournament</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> January 1, 2026
+                        </div>
+                        <h3 class="article-title">CCA Elite Scouting Tournament 2026 Announced</h3>
+                        <p class="article-summary">
+                            Club Consult Africa Limited has unveiled the CCA Elite Scouting Tournament 2026, set to take place at UNION PARK, University of Ghana from January 5–7 and January 9–12, 2026. The event will showcase over 120 young football talents aged 16–21 from eight youth teams, with renowned global scouts and FIFA officials in attendance.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 3 min read
+                            </span>
+                            <a href="../articles/cca-elite-scouting-tournament-2026.html" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 2 -->
+                <div class="article-card" data-category="development" data-id="2">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Youth Football Development">
+                        <div class="article-category">Development</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> November 28, 2025
+                        </div>
+                        <h3 class="article-title">The Future of African Youth Football Development</h3>
+                        <p class="article-summary">
+                            An in-depth look at how structured youth development programs are transforming African football. We explore the success stories, challenges, and future prospects for nurturing world-class talent on the continent through academies, tournaments, and international partnerships.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 5 min read
+                            </span>
+                            <a href="../articles/future-african-youth-football-development.html" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 3 -->
+                <div class="article-card" data-category="scouting" data-id="3">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Football Scouting">
+                        <div class="article-category">Scouting</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> November 12, 2025
+                        </div>
+                        <h3 class="article-title">Global Scouts Descend on Ghana for Talent Identification</h3>
+                        <p class="article-summary">
+                            With the upcoming CCA Elite Scouting Tournament, over 30 international scouts from top European clubs are expected to attend. This article examines how African talent identification has evolved and what scouts are looking for in the next generation of football stars.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 4 min read
+                            </span>
+                            <a href="../articles/global-scouts-ghana-talent-identification.html" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 4 -->
+                <div class="article-card" data-category="business" data-id="4">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Football Economics">
+                        <div class="article-category">Business</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> October 30, 2025
+                        </div>
+                        <h3 class="article-title">The Economic Impact of Football Academies in West Africa</h3>
+                        <p class="article-summary">
+                            Football academies are not just producing talent—they're driving local economies. This analysis looks at job creation, infrastructure development, and international investment flowing into regions with successful youth development programs.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 6 min read
+                            </span>
+                            <a href="article-detail.html?id=4" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 5 -->
+                <div class="article-card" data-category="development" data-id="5">
+                    <div class="article-image">
+                        <img src="https://i0.wp.com/www.gbcghanaonline.com/wp-content/uploads/2025/06/Queens.png" alt="Women's Football">
+                        <div class="article-category">Development</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> October 18, 2025
+                        </div>
+                        <h3 class="article-title">Rising Stars: Women's Football Development in Ghana</h3>
+                        <p class="article-summary">
+                            The growth of women's football in Ghana has seen remarkable progress in recent years. This feature highlights the success stories, ongoing challenges, and initiatives aimed at creating equal opportunities for female footballers across the country.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 4 min read
+                            </span>
+                            <a href="article-detail.html?id=5" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 6 -->
+                <div class="article-card" data-category="scouting" data-id="6">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Technology in Football">
+                        <div class="article-category">Scouting</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> October 5, 2025
+                        </div>
+                        <h3 class="article-title">How Technology is Revolutionizing Football Scouting in Africa</h3>
+                        <p class="article-summary">
+                            From video analysis to performance tracking wearables, technology is transforming how scouts identify and evaluate talent. We explore the cutting-edge tools being used in African football and how they're leveling the playing field for undiscovered talent.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 5 min read
+                            </span>
+                            <a href="article-detail.html?id=6" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 7 -->
+                <div class="article-card" data-category="business" data-id="7">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1653378972269-aae6d81e2c18?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Football Contracts">
+                        <div class="article-category">Business</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> September 22, 2025
+                        </div>
+                        <h3 class="article-title">Navigating Football Contracts: A Guide for African Players</h3>
+                        <p class="article-summary">
+                            Understanding contract terms, negotiation strategies, and legal protections is crucial for professional footballers. This comprehensive guide breaks down the essential elements every player should know before signing.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 7 min read
+                            </span>
+                            <a href="article-detail.html?id=7" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article 8 -->
+                <div class="article-card" data-category="tournament" data-id="8">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1740906792290-669025a709e5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Football Strategy">
+                        <div class="article-category">Tournament</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> September 10, 2025
+                        </div>
+                        <h3 class="article-title">Preparing for International Tournaments: A Coach's Perspective</h3>
+                        <p class="article-summary">
+                            Insights from top African coaches on how to prepare youth teams for international competitions. From tactical preparation to mental conditioning, learn what it takes to compete at the highest level.
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-read-time">
+                                <i class="far fa-clock"></i> 6 min read
+                            </span>
+                            <a href="article-detail.html?id=8" class="article-read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Load More Button -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="loadMoreArticles" class="btn-primary" style="padding: 15px 40px;">Load More Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="../index.html"><img src="../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/ClubConsultAfrica/" class="social-icon" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/ClubConsultAfr" class="social-icon" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/clubconsultafrica/?hl=en" class="social-icon" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/" class="social-icon" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCbFCo17_fMGdNh5AVGJZ6vw" class="social-icon" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="index.html#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="articles.html"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Player Representation</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Contract Negotiations</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Transfer Management</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Scouting Services</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Brand Management</a></li>
+                        <li><a href="index.html#services"><i class="fas fa-chevron-right"></i> Career Development</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p style="opacity: 0.8; margin-bottom: 20px;">
+                        Subscribe to our newsletter for the latest updates, insights, and opportunities in African football.
+                    </p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" name="email" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn" id="submitNewsletter">Subscribe</button>
+                    </form>
+                    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">
+                        We respect your privacy. Unsubscribe at any time.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Club Consult Africa. All rights reserved. | <a href="#" style="color: var(--secondary-color); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--secondary-color); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Mobile Menu Toggle
+            $('#mobileMenuBtn').click(function() {
+                $('#mainNav').toggleClass('active');
+                $(this).html($('#mainNav').hasClass('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>');
+            });
+            
+            // Navbar scroll effect and progress bar
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.navbar').addClass('scrolled');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                }
+                
+                // Update scroll progress
+                const winScroll = $(window).scrollTop();
+                const height = $(document).height() - $(window).height();
+                const scrolled = (winScroll / height) * 100;
+                $('.scroll-progress').css('width', scrolled + '%');
+            });
+            
+            // Smooth scrolling for navigation links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                if (targetId === '#') return;
+                
+                const targetElement = $(targetId);
+                if (targetElement.length) {
+                    const navbarHeight = $('.navbar').outerHeight();
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - navbarHeight
+                    }, 800);
+                    
+                    // Update active nav link
+                    $('.nav-links a').removeClass('active');
+                    $(this).addClass('active');
+                    
+                    // Close mobile menu if open
+                    if ($('#mainNav').hasClass('active')) {
+                        $('#mainNav').removeClass('active');
+                        $('#mobileMenuBtn').html('<i class="fas fa-bars"></i>');
+                    }
+                }
+            });
+            
+            // Articles Filter Functionality
+            $('.filter-btn').on('click', function() {
+                const filter = $(this).data('filter');
+                
+                // Update active filter button
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // Filter articles
+                if (filter === 'all') {
+                    $('.article-card').fadeIn(500);
+                } else {
+                    $('.article-card').each(function() {
+                        if ($(this).data('category') === filter) {
+                            $(this).fadeIn(500);
+                        } else {
+                            $(this).fadeOut(300);
+                        }
+                    });
+                }
+            });
+            
+            // Load More Articles Functionality
+            $('#loadMoreArticles').on('click', function() {
+                // In a real application, this would fetch more articles from a server
+                // For this example, we'll simulate loading more articles
+                const $button = $(this);
+                const originalText = $button.text();
+                
+                // Show loading state
+                $button.html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+                $button.prop('disabled', true);
+                
+                // Simulate API call delay
+                setTimeout(function() {
+                    // Create new articles (simulated)
+                    const newArticles = [
+                        {
+                            id: 9,
+                            category: 'development',
+                            title: 'Mental Health in Professional Football: Breaking the Stigma',
+                            date: 'August 28, 2025',
+                            summary: 'Exploring the importance of mental health support for professional athletes and the initiatives being taken to address psychological well-being in African football.',
+                            readTime: '5 min read',
+                            image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+                        },
+                        {
+                            id: 10,
+                            category: 'business',
+                            title: 'The Business of Football Academies: Sustainable Models for Success',
+                            date: 'August 15, 2025',
+                            summary: 'An analysis of different business models for football academies in Africa and how they can achieve financial sustainability while developing talent.',
+                            readTime: '6 min read',
+                            image: 'https://images.unsplash.com/photo-1552667466-07770ae110d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+                        }
+                    ];
+                    
+                    // Append new articles to grid
+                    newArticles.forEach(function(article, index) {
+                        const articleCard = `
+                            <div class="article-card" data-category="${article.category}" data-id="${article.id}" style="opacity: 0; transform: translateY(30px);">
+                                <div class="article-image">
+                                    <img src="${article.image}" alt="${article.title}">
+                                    <div class="article-category">${article.category.charAt(0).toUpperCase() + article.category.slice(1)}</div>
+                                </div>
+                                <div class="article-content">
+                                    <div class="article-date">
+                                        <i class="far fa-calendar-alt"></i> ${article.date}
+                                    </div>
+                                    <h3 class="article-title">${article.title}</h3>
+                                    <p class="article-summary">${article.summary}</p>
+                                    <div class="article-meta">
+                                        <span class="article-read-time">
+                                            <i class="far fa-clock"></i> ${article.readTime}
+                                        </span>
+                                        <a href="article-detail.html?id=${article.id}" class="article-read-more">
+                                            Read More <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add to grid with animation delay
+                        setTimeout(function() {
+                            $('.articles-grid-container').append(articleCard);
+                            
+                            // Animate the new card
+                            setTimeout(function() {
+                                $(`.article-card[data-id="${article.id}"]`).css({
+                                    'opacity': '1',
+                                    'transform': 'translateY(0)'
+                                });
+                            }, 100);
+                        }, index * 200);
+                    });
+                    
+                    // Restore button state
+                    $button.text(originalText);
+                    $button.prop('disabled', false);
+                    
+                    // Show notification
+                    showNotification('success', 'Articles Loaded!', '2 new articles have been added to the grid.');
+                    
+                }, 1500); // Simulated API delay
+            });
+            
+            // Newsletter Form Submission
+            $('#newsletterForm').on('submit', function(e) {
+                e.preventDefault();
+                const email = $(this).find('input[name="email"]').val();
+                
+                if (isValidEmail(email)) {
+                    // In a real application, this would submit to a server
+                    showNotification('success', 'Subscribed!', `Thank you for subscribing to our newsletter! You'll receive our latest updates and insights in your inbox.`);
+                    $(this).find('input[name="email"]').val('');
+                } else {
+                    showNotification('error', 'Invalid Email', 'Please enter a valid email address.');
+                }
+            });
+            
+            // Add hover effect to article cards
+            $('.article-card').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-12px)');
+                    $(this).css('box-shadow', '0 20px 40px rgba(0, 0, 0, 0.15)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                    $(this).css('box-shadow', '0 8px 25px rgba(0, 0, 0, 0.08)');
+                }
+            );
+            
+            // Animate hero elements on load
+            gsap.from('.hero-articles-title', {duration: 1.2, y: -50, opacity: 0, delay: 0.2});
+            gsap.from('.hero-articles-subtitle', {duration: 1.2, y: 50, opacity: 0, delay: 0.4});
+            
+            // Add scroll animations with GSAP
+            gsap.utils.toArray('.article-card').forEach((element, index) => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Check if we're on an article detail page
+            checkArticleDetailPage();
+        });
+        
+        // Check if we're on an article detail page
+        function checkArticleDetailPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            
+            if (articleId) {
+                // We're on an article detail page
+                showArticleDetail(articleId);
+            }
+        }
+        
+        // Show article detail
+        function showArticleDetail(articleId) {
+            // Hide the articles grid section
+            $('#articles-grid').hide();
+            
+            // Create article detail section
+            const articleDetail = `
+                <section id="article-detail" class="section">
+                    <div class="container">
+                        <div class="article-detail-container">
+                            <a href="articles.html" class="article-detail-back">
+                                <i class="fas fa-arrow-left"></i> Back to All Articles
+                            </a>
+                            
+                            <div class="article-detail-header">
+                                <div class="article-detail-category">Tournament</div>
+                                <h1 class="article-detail-title">CCA Elite Scouting Tournament 2026 Announced</h1>
+                                <div class="article-detail-meta">
+                                    <span><i class="far fa-calendar-alt"></i> December 15, 2025</span>
+                                    <span><i class="far fa-clock"></i> 3 min read</span>
+                                    <span><i class="far fa-user"></i> By CCA Editorial Team</span>
+                                </div>
+                            </div>
+                            
+                            <div class="article-detail-image">
+                                <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="CCA Elite Scouting Tournament">
+                            </div>
+                            
+                            <div class="article-detail-content">
+                                <p><strong>Club Consult Africa Limited has unveiled the CCA Elite Scouting Tournament 2026</strong>, set to take place at UNION PARK, University of Ghana from January 5–7 and January 9–12, 2026. The event will showcase over 120 young football talents aged 16–21 from eight youth teams, with renowned global scouts and FIFA officials in attendance.</p>
+                                
+                                <h3>Global Attention for Youth Football Talent</h3>
+                                <p>The tournament will feature 8 youth teams from Ghana, showcasing over 120 promising young talents between the ages of 16 and 21. What makes this event truly special is the presence of renowned global scouts and FIFA officials, who will be in attendance to observe and engage with the next generation of African football stars.</p>
+                                
+                                <p>Club Consult Africa is calling on all media houses in print, broadcast, and digital to partner with us in giving this landmark youth football event the visibility it deserves. Coverage will not only highlight the talent on display but also underscore Ghana’s growing reputation as a hub for youth football development with international recognition.</p>
+                                
+                                <h3>Key Reasons to Cover the Tournament</h3>
+                                <ul>
+                                    <li><strong>Global Attention:</strong> Renowned scouts and FIFA officials will be present</li>
+                                    <li><strong>Talent Discovery:</strong> A rare opportunity to witness future stars at the grassroots level</li>
+                                    <li><strong>Football Development:</strong> Reinforcing Ghana’s reputation as a breeding ground for world-class players</li>
+                                    <li><strong>Community Engagement:</strong> Inspiring young athletes and promoting sports culture</li>
+                                </ul>
+                                
+                                <p>We would be honored by your presence at this event and look forward to welcoming you in Accra.</p>
+                                
+                                <h3>Contact Information</h3>
+                                <p>For accreditation and further details, please contact: <strong>024 709 0765 / 055 178 6437</strong></p>
+                                
+                                <p><strong>YUSSIF ALHASSAN CHIBSAH</strong><br>
+                                Chief Executive Officer<br>
+                                Club Consult Africa Ltd</p>
+                            </div>
+                            
+                            <div class="article-detail-footer">
+                                <div class="article-share">
+                                    <span class="share-text">Share this article:</span>
+                                    <div class="share-icons">
+                                        <a href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#" title="Share via Email"><i class="far fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="index.html#talent-form" class="btn-primary">Join Our Talent Pool</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            
+            // Insert after the hero section
+            $('.hero-articles').after(articleDetail);
+            
+            // Scroll to the article detail
+            setTimeout(function() {
+                $('html, body').animate({
+                    scrollTop: $('#article-detail').offset().top - 100
+                }, 500);
+            }, 300);
+        }
+        
+        // Email validation helper
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        // Notification System
+        function showNotification(type, title, message) {
+            // Create notification element
+            const notification = $('<div class="notification-popup"></div>');
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                         type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            
+            notification.html(`
+                <div class="notification-header">
+                    <div class="notification-icon">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <h3 class="notification-title">${title}</h3>
+                    <button class="notification-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="notification-message">${message}</div>
+                <div class="notification-progress">
+                    <div class="notification-progress-bar"></div>
+                </div>
+            `);
+            
+            notification.addClass(type);
+            
+            // Add to body
+            $('body').append(notification);
+            
+            // Show notification
+            setTimeout(function() {
+                notification.addClass('show');
+            }, 100);
+            
+            // Close button event
+            notification.find('.notification-close').on('click', function() {
+                notification.removeClass('show');
+                setTimeout(function() {
+                    notification.remove();
+                }, 500);
+            });
+            
+            // Auto-remove after 5 seconds
+            setTimeout(function() {
+                if (notification.hasClass('show')) {
+                    notification.removeClass('show');
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 500);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
