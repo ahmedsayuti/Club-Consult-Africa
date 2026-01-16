@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Scouts Descend on Ghana for Talent Identification - Club Consult Africa</title>
+    <title>Sogne Yacouba Officially Unveiled by Yanga SC - Club Consult Africa</title>
 
     <!-- Favicon using company logo -->
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../site.webmanifest">
-
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -585,6 +585,61 @@
             text-align: center;
         }
         
+        /* Player Stats Box */
+        .player-stats {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 40px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .player-stats h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .stat-label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .stat-value {
+            color: #333;
+        }
+        
+        /* Jersey Number Display */
+        .jersey-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-right: 15px;
+            vertical-align: middle;
+            border: 3px solid var(--secondary-color);
+        }
+        
         /* ===== RESPONSIVE STYLES ===== */
         @media (max-width: 992px) {
             .article-hero-content .article-title {
@@ -649,6 +704,12 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            
+            .jersey-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -677,6 +738,17 @@
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .jersey-number {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                margin-right: 10px;
+            }
         }
     </style>
 </head>
@@ -685,7 +757,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <a href="../../index.html"><img src="../../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
+                <a href="../../../index.html"><img src="../../../assets/img/logo3.png" alt="Club Consult Africa Logo"></a>
             </div>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -693,14 +765,14 @@
             </button>
             
             <ul class="nav-links" id="mainNav">
-                <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="../../about/"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="../../services/"><i class="fas fa-cogs"></i> Services</a></li>
-                <li><a href="../../index.html#clients"><i class="fas fa-users"></i> Our Players</a></li>
-                <li><a href="../../blog/"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="../../index.html#highlights"><i class="fas fa-video"></i> Highlights</a></li>
-                <li><a href="../../index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
-                <li><a href="../../index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="../../../index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="../../../about/"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="../../../services/"><i class="fas fa-cogs"></i> Services</a></li>
+                <li><a href="../../../index.html#clients"><i class="fas fa-users"></i> Our Players</a></li>
+                <li><a href="../../../blog/"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="../../../index.html#highlights"><i class="fas fa-video"></i> Highlights</a></li>
+                <li><a href="../../../index.html#partnership-form"><i class="fas fa-handshake"></i> Partnership</a></li>
+                <li><a href="../../../index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -709,13 +781,13 @@
     <section class="article-hero">
         <div class="container">
             <div class="article-hero-content">
-                <span class="article-category">SCOUTING</span>
-                <h1 class="article-title">Global Scouts Descend on Ghana for Talent Identification</h1>
-                <p class="article-excerpt">Over 30 international scouts from top European clubs including Arsenal, Manchester United, and Barcelona expected at CCA Elite Scouting Tournament to identify next generation of African football talent.</p>
+                <span class="article-category">TRANSFER NEWS</span>
+                <h1 class="article-title">Yanga SC Officially Unveil Sogne Yacouba</h1>
+                <p class="article-excerpt">Burkina Faso international Sogne Yacouba joins Tanzanian giants Young Africans SC on a free transfer from Asante Kotoko, signing a two-year deal with the Jangwani based club.</p>
                 <div class="article-meta">
-                    <span><i class="far fa-calendar-alt"></i> November 12, 2025</span>
-                    <span><i class="far fa-clock"></i> 10 min read</span>
-                    <span><i class="far fa-user"></i> By James Ofori</span>
+                    <span><i class="far fa-calendar-alt"></i> March 5, 2026</span>
+                    <span><i class="far fa-clock"></i> 6 min read</span>
+                    <span><i class="far fa-user"></i> By Kwame Asante</span>
                 </div>
             </div>
         </div>
@@ -725,139 +797,86 @@
     <section class="article-section">
         <div class="container">
             <div class="article-container">
-                <a href="../../blog/" class="article-back">
+                <a href="../../../blog/" class="article-back">
                     <i class="fas fa-arrow-left"></i> Back to All Articles
                 </a>
                 
                 <div class="article-image">
-                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Football Scouting">
-                    <p class="image-caption">International scouts will be watching Ghana's young talents closely</p>
+                    <img src="../../archived/songe_yacouba_yanga.jpeg" alt="Sogne Yacouba Burkina Faso Forward">
+                    <p class="image-caption">Sogne Yacouba unveiled as a Young Africans SC player with the number 10 shirt</p>
                 </div>
                 
                 <div class="article-content">
-                    <h3>International Scouting Attention on Ghana</h3>
-                    <p>With the upcoming CCA Elite Scouting Tournament, over 30 international scouts from top European clubs are expected to attend. This represents a significant opportunity for Ghanaian youth players to showcase their talents on an international stage. The tournament has become a must-attend event for scouts looking to discover the next generation of African football talent.</p>
+                    <h3>Transfer Completed: Yacouba Joins Tanzanian Giants</h3>
+                    <p>Tanzanian’s heavyweights Young Africans SC have signed Former Asante Kotoko forward Sogne Yacouba on a free transfer.</p>
+                    
+                    <p>The Burkina Faso international signed a two-year deal with Yanga earlier this month after ending his contract with Ghanaian topflight side Asante Kotoko.</p>
                     
                     <blockquote>
-                        "Ghana has consistently produced world-class football talent. What's changing is how systematically we're identifying and developing that talent. The CCA tournament represents the new frontier in African talent discovery."
+                        "Yanga SC is a club with great history and ambition. I'm excited to join this team and contribute to their success in both domestic and continental competitions."
                     </blockquote>
                     
-                    <h3>The Evolution of African Talent Identification</h3>
-                    <p>African talent identification has evolved significantly over the past decade. While scouts once focused primarily on physical attributes like speed and strength, modern scouting now places equal emphasis on technical skills, tactical understanding, and mental fortitude.</p>
+                    <h3>The Number 10 Shirt</h3>
+                    <p>Yacouba has been handed the number 10 shirt at the Jangwani based club in Dar es Salaam ahead of the 2020-21 season and is expected to form a prolific partnership with Ghanaian striker Michael Sarpong.</p>
                     
-                    <p>Scouts are looking for players who not only have the physical tools to succeed but also the intelligence and adaptability to thrive in different football cultures and systems. This shift reflects the changing nature of global football, where tactical sophistication and decision-making are as important as physical prowess.</p>
-                    
-                    <div class="article-image">
-                        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Scouting Analysis">
-                        <p class="image-caption">Modern scouting involves detailed analysis of multiple player attributes</p>
+                    <div class="player-stats">
+                        <h4><span class="jersey-number">10</span> Sogne Yacouba - Player Profile</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Position:</span>
+                                <span class="stat-value">Forward</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Age:</span>
+                                <span class="stat-value">28 years</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Nationality:</span>
+                                <span class="stat-value">Burkina Faso</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Previous Club:</span>
+                                <span class="stat-value">Asante Kotoko (Ghana)</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Contract Duration:</span>
+                                <span class="stat-value">2 years</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Transfer Type:</span>
+                                <span class="stat-value">Free Transfer</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <h3>What Modern Scouts Are Looking For</h3>
-                    <p>According to several scouts we interviewed, the key attributes they look for in young African talent include:</p>
+                    <h3>Club Ambitions</h3>
+                    <p>The 28-year old’s unveiling comes as good news to fans of Yanga as they seek to win the championship next season as well as their participation in the CAF Champions league.</p>
                     
-                    <ul>
-                        <li><strong>Technical Proficiency:</strong> Ball control, passing accuracy, shooting technique, and first touch under pressure</li>
-                        <li><strong>Tactical Intelligence:</strong> Understanding of positioning, game reading, decision-making, and spatial awareness</li>
-                        <li><strong>Physical Attributes:</strong> Speed, strength, endurance, agility, and injury resilience</li>
-                        <li><strong>Mental Strength:</strong> Resilience, focus, leadership qualities, and ability to handle pressure</li>
-                        <li><strong>Coachability:</strong> Willingness to learn, adaptability to new systems, and receptiveness to feedback</li>
-                        <li><strong>Personality & Character:</strong> Work ethic, professionalism, and ability to integrate into new environments</li>
-                    </ul>
-                    
-                    <h3>Scouts Expected at CCA Elite Scouting Tournament 2026</h3>
-                    <p>The following clubs and organizations have confirmed scout attendance:</p>
-                    
-                    <h4>English Premier League</h4>
-                    <ul>
-                        <li>Arsenal FC - Head of African Scouting</li>
-                        <li>Manchester United - International Scout</li>
-                        <li>Liverpool FC - African Talent Identification Manager</li>
-                        <li>Chelsea FC - Youth Development Scout</li>
-                        <li>Manchester City - Global Scouting Network Representative</li>
-                    </ul>
-                    
-                    <h4>Other European Leagues</h4>
-                    <ul>
-                        <li>FC Barcelona (Spain) - African Scouting Coordinator</li>
-                        <li>Paris Saint-Germain (France) - International Talent Scout</li>
-                        <li>Ajax Amsterdam (Netherlands) - Youth Development Specialist</li>
-                        <li>Borussia Dortmund (Germany) - African Market Analyst</li>
-                        <li>FC Porto (Portugal) - International Relations Manager</li>
-                    </ul>
-                    
-                    <h4>International Organizations</h4>
-                    <ul>
-                        <li>FIFA - Talent Development Department</li>
-                        <li>CAF (Confederation of African Football) - Technical Committee</li>
-                        <li>UEFA - Youth Development Observatory</li>
-                    </ul>
-                    
-                    <h3>The Impact of Tournaments Like CCA Elite Scouting</h3>
-                    <p>Scouting tournaments provide a unique opportunity for players to be evaluated in a competitive environment against their peers. They allow scouts to see multiple players in one location, making the identification process more efficient.</p>
-                    
-                    <p>For the players, these tournaments offer exposure that can be life-changing. A strong performance in front of the right scout can lead to opportunities at academies and clubs around the world. Past editions of the CCA tournament have resulted in:</p>
-                    
-                    <ul>
-                        <li>12 players securing trials with European academies</li>
-                        <li>7 players signing professional contracts with Ghana Premier League clubs</li>
-                        <li>3 players earning scholarships at US college soccer programs</li>
-                        <li>2 players joining Club Consult Africa's professional representation program</li>
-                    </ul>
-                    
-                    <div class="article-image">
-                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Player Success">
-                        <p class="image-caption">Previous tournament participants have gone on to successful careers</p>
-                    </div>
-                    
-                    <h3>Advice for Young Players</h3>
-                    <p>Based on interviews with experienced scouts, here's their advice for young players attending scouting tournaments:</p>
-                    
-                    <ul>
-                        <li><strong>Be Consistent:</strong> Show your best level in every game, not just when you know scouts are watching</li>
-                        <li><strong>Show Intelligence:</strong> Demonstrate tactical understanding and good decision-making</li>
-                        <li><strong>Work Ethic Matters:</strong> Scouts notice players who work hard defensively and support teammates</li>
-                        <li><strong>Handle Pressure:</strong> Show composure in key moments of the game</li>
-                        <li><strong>Professional Attitude:</strong> Respect opponents, officials, and the tournament environment</li>
-                        <li><strong>Be Coachable:</strong> Show willingness to learn and adapt during the tournament</li>
-                    </ul>
-                    
-                    <h3>The Future of Scouting in Africa</h3>
-                    <p>The CCA Elite Scouting Tournament is particularly significant because of its focus on providing a professional environment that mimics what players would experience at higher levels of the game. This includes:</p>
-                    
-                    <ul>
-                        <li>Professional match officials</li>
-                        <li>Medical and physiotherapy support</li>
-                        <li>Performance analysis and video recording</li>
-                        <li>Media and interview training</li>
-                        <li>Educational workshops on career development</li>
-                    </ul>
-                    
-                    <div style="font-style: italic; margin-top: 40px; padding: 20px; background: #f8f9fa; border-left: 4px solid var(--secondary-color);">
-                        <p><strong>Conclusion:</strong> The convergence of global scouts in Ghana for the CCA Elite Scouting Tournament represents a significant moment for African football. It demonstrates the growing recognition of Africa as a primary source of football talent and the importance of structured platforms for talent identification.</p>
-                    </div>
+                    <h3>Yanga SC's Legacy</h3>
+                    <p>Young Africans are Tanzania’s most successful club with 22 league titles, four Tanzania (FA) Cups and five CECAFA Cup titles.</p>
                 </div>
                 
                 <div class="article-tags">
-                    <a href="../../blog/blog.html?tag=scouting" class="article-tag">Football Scouting</a>
-                    <a href="../../blog/blog.html?tag=talent" class="article-tag">Talent Identification</a>
-                    <a href="../../blog/blog.html?tag=europe" class="article-tag">European Clubs</a>
-                    <a href="../../blog/blog.html?tag=assessment" class="article-tag">Player Assessment</a>
-                    <a href="../../blog/blog.html?tag=tournament" class="article-tag">Scouting Tournament</a>
-                    <a href="../../blog/blog.html?tag=international" class="article-tag">International Scouts</a>
+                    <a href="../../../blog/blog.html?tag=transfer" class="article-tag">Football Transfer</a>
+                    <a href="../../../blog/blog.html?tag=burkina-faso" class="article-tag">Burkina Faso</a>
+                    <a href="../../../blog/blog.html?tag=tanzania" class="article-tag">Tanzanian League</a>
+                    <a href="../../../blog/blog.html?tag=free-transfer" class="article-tag">Free Transfer</a>
+                    <a href="../../../blog/blog.html?tag=forward" class="article-tag">Forward</a>
+                    <a href="../../../blog/blog.html?tag=caf" class="article-tag">CAF Champions League</a>
                 </div>
                 
                 <div class="article-actions">
                     <div class="article-share">
                         <span class="share-text">Share this article:</span>
                         <div class="share-icons">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://clubconsultafrica.org/articles/global-scouts-ghana-talent-identification.html" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20article%20about%20Global%20Scouts%20Descending%20on%20Ghana%20for%20Talent%20Identification&url=https://clubconsultafrica.org/articles/global-scouts-ghana-talent-identification.html" target="_blank" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://clubconsultafrica.org/articles/global-scouts-ghana-talent-identification.html&title=Global%20Scouts%20Descend%20on%20Ghana%20for%20Talent%20Identification" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="mailto:?subject=Check out this article: Global Scouts Descend on Ghana for Talent Identification&body=I thought you might be interested in this article: https://clubconsultafrica.org/articles/global-scouts-ghana-talent-identification.html" title="Share via Email"><i class="far fa-envelope"></i></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://clubconsultafrica.org/articles/sogne-yacouba-yanga-sc-transfer.html" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20article%20about%20Sogne%20Yacouba%20joining%20Yanga%20SC&url=https://clubconsultafrica.org/articles/sogne-yacouba-yanga-sc-transfer.html" target="_blank" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://clubconsultafrica.org/articles/sogne-yacouba-yanga-sc-transfer.html&title=Sogne%20Yacouba%20Officially%20Unveiled%20by%20Yanga%20SC" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="mailto:?subject=Check out this article: Sogne Yacouba Officially Unveiled by Yanga SC&body=I thought you might be interested in this article: https://clubconsultafrica.org/articles/sogne-yacouba-yanga-sc-transfer.html" title="Share via Email"><i class="far fa-envelope"></i></a>
                         </div>
                     </div>
                     <div>
-                        <a href="../../index.html#talent-form" class="btn-primary">Register for Scouting</a>
+                        <a href="../../index.html#talent-form" class="btn-primary">Register Your Talent</a>
                     </div>
                 </div>
             </div>
@@ -871,25 +890,25 @@
             <div class="related-grid">
                 <div class="related-card">
                     <div class="related-image">
-                        <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CCA Elite Scouting Tournament">
+                        <img src="../../archived/sam_owusu.jpeg" alt="Samuel Owusu Saudi Arabia">
                     </div>
                     <div class="related-content">
-                        <span class="related-category">Press Release</span>
-                        <h3 class="related-title">CCA Elite Scouting Tournament 2026 Announced</h3>
-                        <p class="related-excerpt">Global scouts and FIFA officials to converge in Ghana for landmark youth football event showcasing over 120 talents aged 16-21.</p>
-                        <a href="../cca-elite-scouting-tournament-2026/" class="related-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                        <span class="related-category">TRANSFER NEWS</span>
+                        <h3 class="related-title">Samuel Owusu Signs for Saudi Giants Al-Ahli Jeddah</h3>
+                        <p class="related-excerpt">Ghanaian winger Samuel Owusu completes season-long loan move to Al-Ahli Jeddah from Al Fayha SC.</p>
+                        <a href="../../archived/sam_owusu.jpeg" class="related-link">Read Article <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 
                 <div class="related-card">
                     <div class="related-image">
-                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Youth Football Development">
+                        <img src="../../archived/latif_amadouu.jpeg" alt="Latif Amadou Saudi Arabia">
                     </div>
                     <div class="related-content">
-                        <span class="related-category">Development</span>
-                        <h3 class="related-title">The Future of African Youth Football Development</h3>
-                        <p class="related-excerpt">Comprehensive analysis of how structured youth development programs are transforming African football talent into world-class players.</p>
-                        <a href="../future-african-youth-football-development/" class="related-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                        <span class="related-category">TRANSFER NEWS</span>
+                        <h3 class="related-title">Latif Amadou Signs for Saudi Arabian Giants Al Ansar Club</h3>
+                        <p class="related-excerpt">Ghanaian striker Latif Amadou completes move to Saudi Arabia Premier League side Al Ansar Club on a six-month deal.</p>
+                        <a href="../../archived/latif_amadouu.jpeg" class="related-link">Read Article <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -901,7 +920,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <a href="../../index.html"><img src="../../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
+                    <a href="../../../index.html"><img src="../../../assets/img/logo3.png" alt="Club Consult Africa Logo" style="height: 80px; margin-bottom: 20px;"></a>
                     <p style="opacity: 0.8; margin-bottom: 20px;">
                         Professional football agency dedicated to the success of African athletes worldwide. Excellence in representation, integrity in practice.
                     </p>
@@ -927,12 +946,12 @@
                 <div class="footer-column">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="../../index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="../../index.html#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="../../index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                        <li><a href="../../index.html#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
-                        <li><a href="../../blog/blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
-                        <li><a href="../../blog/articles.html"><i class="fas fa-chevron-right"></i> All Articles</a></li>
+                        <li><a href="../../../index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="../../../index.html#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="../../../index.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="../../../index.html#clients"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="../../../blog/blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="../../../blog/articles.html"><i class="fas fa-chevron-right"></i> All Articles</a></li>
                     </ul>
                 </div>
                 
@@ -959,7 +978,7 @@
             </div>
             
             <div class="copyright">
-                &copy; 2025 Club Consult Africa. All rights reserved.
+                &copy; 2026 Club Consult Africa. All rights reserved.
             </div>
         </div>
     </footer>
